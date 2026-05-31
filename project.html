@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Detail — Nguyen Chi Anh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══ DESIGN SYSTEM ═══ */
+:root{
+  --c-primary:#00E5FF;--c-secondary:#64FFDA;--c-accent:#00FFC6;
+  --c-bg:#050B16;--c-surface:#0A192F;--c-surface2:#112240;
+  --c-text:#FFFFFF;--c-text2:#B0BEC5;
+  --c-border:rgba(0,229,255,.15);--c-glow:rgba(0,229,255,.28);
+  --f-head:'Montserrat','Be Vietnam Pro',sans-serif;
+  --f-ui:'Be Vietnam Pro',sans-serif;
+  --f-body:'Roboto',sans-serif;
+  --ease:.32s cubic-bezier(.4,0,.2,1);
+  --proj-accent:#00E5FF; /* overridden per project */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--c-bg);color:var(--c-text);font-family:var(--f-body);overflow-x:hidden;line-height:1.65}
+#bgCanvas{position:fixed;inset:0;z-index:0;opacity:.32;pointer-events:none}
+.wrap{position:relative;z-index:1}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,11,22,.85);backdrop-filter:blur(22px);border-bottom:1px solid var(--c-border)}
+.logo{font-family:var(--f-head);font-size:16px;font-weight:900;letter-spacing:3px;color:var(--c-primary)}
+.logo em{color:#fff;font-style:normal}
+.back-btn{display:flex;align-items:center;gap:8px;font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c-text2);text-decoration:none;padding:7px 16px;border:1px solid var(--c-border);border-radius:7px;transition:var(--ease)}
+.back-btn:hover{color:var(--c-primary);border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nav-proj-id{font-family:var(--f-head);font-size:11px;font-weight:800;letter-spacing:3px;color:var(--c-primary);background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);padding:5px 13px;border-radius:6px}
+
+/* ═══ PART 1 — HERO ═══ */
+.proj-hero{min-height:42vh;display:flex;align-items:flex-end;padding:120px 80px 48px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--proj-accent-alpha,.08) 0%,transparent 70%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,black 20%,transparent 72%)}
+.hero-inner{max-width:900px;animation:fadeUp .7s ease-out both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.proj-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-ui);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--proj-accent);background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);padding:4px 14px;border-radius:100px;margin-bottom:20px}
+.proj-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--proj-accent);animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.proj-h1{font-family:var(--f-head);font-size:clamp(32px,4.5vw,58px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:18px}
+.proj-h1 span{-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.proj-cats{display:flex;gap:8px;flex-wrap:wrap}
+.proj-cat{font-family:var(--f-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--c-text2)}
+
+/* ═══ META BAR ═══ */
+.meta-bar{padding:0 80px 64px}
+.meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:900px}
+.meta-c{background:rgba(10,25,47,.8);border:1px solid var(--c-border);border-radius:12px;padding:18px 20px;backdrop-filter:blur(20px)}
+.meta-lbl{font-family:var(--f-ui);font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--c-text2);margin-bottom:6px}
+.meta-val{font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--proj-accent)}
+
+/* ═══ DIVIDER ═══ */
+.divl{height:1px;background:linear-gradient(90deg,transparent,var(--c-border),transparent);margin:0 80px}
+
+/* ═══ PART 1 — INTRO BODY ═══ */
+.intro-section{padding:64px 80px}
+.part-label{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+.part-num{font-family:var(--f-head);font-size:11px;font-weight:900;letter-spacing:3px;color:var(--proj-accent);background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);padding:5px 14px;border-radius:6px}
+.part-title{font-family:var(--f-head);font-size:22px;font-weight:800;letter-spacing:-.5px}
+.intro-grid{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start}
+/* overview card */
+.overview-card{background:rgba(10,25,47,.8);border:1px solid var(--c-border);border-radius:16px;padding:32px;backdrop-filter:blur(20px)}
+.card-ttl{font-family:var(--f-ui);font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--proj-accent);margin-bottom:14px}
+.overview-card p{font-size:14px;color:var(--c-text2);line-height:1.8;margin-bottom:22px}
+.objectives{list-style:none;display:flex;flex-direction:column;gap:10px}
+.objectives li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--c-text2);line-height:1.6}
+.objectives li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--proj-accent);flex-shrink:0;margin-top:7px;box-shadow:0 0 6px var(--proj-accent)}
+/* highlights card */
+.highlights-card{background:rgba(10,25,47,.8);border:1px solid var(--c-border);border-radius:16px;padding:28px;backdrop-filter:blur(20px);display:flex;flex-direction:column;gap:14px}
+.hl-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px}
+.hl-icon{font-size:20px;margin-bottom:7px}
+.hl-ttl{font-family:var(--f-ui);font-size:12px;font-weight:700;color:#fff;margin-bottom:4px}
+.hl-txt{font-size:12px;color:var(--c-text2);line-height:1.6}
+
+/* ═══ PART 2 — FILES ═══ */
+.files-section{padding:64px 80px 88px;background:rgba(10,25,47,.18)}
+.files-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px}
+/* file card */
+.file-card{background:rgba(10,25,47,.85);border:1px solid var(--c-border);border-radius:14px;padding:24px;backdrop-filter:blur(20px);transition:var(--ease);display:flex;flex-direction:column;gap:0}
+.file-card:hover{border-color:rgba(0,229,255,.38);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.3),0 0 28px rgba(0,229,255,.07)}
+.file-icon-wrap{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;flex-shrink:0}
+.file-name{font-family:var(--f-ui);font-size:14px;font-weight:700;margin-bottom:5px;line-height:1.3}
+.file-desc{font-size:12px;color:var(--c-text2);line-height:1.6;margin-bottom:16px;flex:1}
+.file-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.file-type-badge{font-family:var(--f-ui);font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border-radius:4px}
+.file-size{font-family:var(--f-ui);font-size:11px;color:var(--c-text2)}
+/* download button */
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));color:var(--c-bg);font-family:var(--f-ui);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;border-radius:8px;text-decoration:none;transition:var(--ease);border:none;cursor:pointer;margin-top:auto}
+.dl-btn:hover{box-shadow:0 0 24px rgba(0,229,255,.35);transform:translateY(-1px)}
+.dl-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+/* placeholder state */
+.dl-btn.placeholder{background:rgba(255,255,255,.05);color:var(--c-text2);border:1px dashed rgba(255,255,255,.15);pointer-events:none}
+.dl-btn.placeholder:hover{transform:none;box-shadow:none}
+/* upload note */
+.upload-note{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:rgba(0,229,255,.04);border:1px dashed rgba(0,229,255,.2);border-radius:12px;padding:16px 20px;font-family:var(--f-ui);font-size:12px;color:var(--c-text2)}
+.upload-note svg{width:18px;height:18px;stroke:var(--c-primary);fill:none;stroke-width:1.8;flex-shrink:0}
+
+/* ═══ PREV / NEXT ═══ */
+.pn-bar{padding:48px 80px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--c-border)}
+.pn-btn{display:flex;align-items:center;gap:10px;font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c-text2);text-decoration:none;padding:10px 20px;border:1px solid var(--c-border);border-radius:8px;transition:var(--ease)}
+.pn-btn:hover{color:var(--c-primary);border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.05)}
+.pn-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pn-btn.hidden{opacity:0;pointer-events:none}
+.pn-center{font-family:var(--f-head);font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25)}
+
+/* anim */
+.anim{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.anim.vis{opacity:1;transform:none}
+
+/* responsive */
+@media(max-width:900px){
+  nav,section,.intro-section,.meta-bar,.files-section,.pn-bar{padding-left:24px;padding-right:24px}
+  .divl{margin:0 24px}
+  .intro-grid{grid-template-columns:1fr}
+  .files-grid{grid-template-columns:1fr 1fr}
+  .meta-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:580px){
+  .files-grid,.meta-row{grid-template-columns:1fr}
+  .proj-h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="wrap" id="app">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">NCA<em>.</em>Portfolio</div>
+    <a href="portfolio-design-prototype.html" class="back-btn">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+    <div class="nav-proj-id" id="nav-id">PROJECT —</div>
+  </nav>
+
+  <!-- content injected by JS -->
+  <div id="proj-hero-wrap"></div>
+  <div id="proj-meta-wrap"></div>
+  <div class="divl"></div>
+  <div id="proj-intro-wrap"></div>
+  <div class="divl"></div>
+  <div id="proj-files-wrap"></div>
+  <div id="proj-pn-wrap"></div>
+
+</div><!-- .wrap -->
+
+<script>
+/* ══════════════════════════════════════════
+   PROJECT DATA
+   To update files: change the "href" field
+   of each file entry to the actual file URL.
+   For uploaded Google Drive files, use the
+   shareable link with &export=download.
+══════════════════════════════════════════ */
+const PROJECTS = {
+  1:{
+    num:"01",
+    title:"Basic File & Folder Management",
+    tag:"Digital Literacy · File Management",
+    categories:["Digital Literacy","File Systems","Cloud Storage"],
+    accent:"#00E5FF",
+    accentAlpha:"rgba(0,229,255,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#00E5FF 55%,#64FFDA 100%)",
+    meta:[
+      {label:"Project Type",  value:"Practical Exercise"},
+      {label:"Duration",      value:"Week 1 - 2"},
+      {label:"Tools Used",    value:"Windows Explorer"},
+      {label:"Deliverable",   value:"Documented Folder Structure"}
+    ],
+    overview:`Đây là dự án rèn luyện thao tác cơ bản trên hệ điều hành (Windows/macOS/Linux). Nó tập trung vào việc quản lý dữ liệu số, giúp người dùng hiểu cách máy tính tổ chức và lưu trữ thông tin thông qua sơ đồ cây (thư mục cha -> thư mục con -> tệp tin).`,
+    objectives:[
+      "Thực hành và thành thạo các kỹ năng tạo, đổi tên, sao chép, di chuyển và xóa tệp/thư mục trên hệ điều hành Windows."
+    ],
+    highlights:[
+      {icon:"📁",title:"Thiết lập danh mục và điều hướng",text:"Truy cập vào File Explorer để xây dựng hệ thống phân cấp thư mục có hệ thống và tổ chức không gian làm việc kỹ thuật số"},
+      {icon:"✏️",title:"Tạo và sửa đổi tệp",text:"Tạo các tài liệu mới và sử dụng chức năng Đổi tên (Rename) để đảm bảo việc nhận diện tệp rõ ràng và chuyên nghiệp"},
+      {icon:"",title:"Sao chép dữ liệu (Copy & Paste)",text:"Thực hiện các lệnh sao chép để nhân bản các tệp quan trọng sang các danh mục khác nhau nhằm quản lý dữ liệu hiệu quả"},
+      {icon:"",title:"Di chuyển và tổ chức tệp (Cut & Paste)",text:"Di chuyển các tệp giữa các thư mục để tối ưu hóa cấu trúc lưu trữ và duy trì quy trình làm việc chuyên nghiệp"}
+    ],
+    files:[
+      {name:"Project Report",       type:"mp4",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài tập này bao quát toàn bộ vòng đời của một tệp tin/thư mục.",size:""  , href:"prj1.mp4"}
+    ]
+  },
+  2:{
+    num:"02",
+    title:"Soft Robotics in Biomedical Rehabilitation",
+    tag:"Academic Research · Biomedical Engineering",
+    categories:["Research","Soft Robotics","Biomedical","IEEE"],
+    accent:"#00FFC6",
+    accentAlpha:"rgba(0,255,198,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#00FFC6 55%,#64FFDA 100%)",
+    meta:[
+      {label:"Project Type",  value:"Academic Research Paper"},
+      {label:"Duration",      value:"Week 3 – 4"},
+      {label:"Sources Used",  value:"10 Peer-reviewed Papers"},
+      {label:"Deliverable",   value:"Literature Review Report"}
+    ],
+    overview:`Dự án này nghiên cứu tình trạng hiện tại của các bộ đồ khung robot mềm (soft robotic exosuits) hỗ trợ phục hồi chức năng chi trên cho bệnh nhân sau đột quỵ. Bằng cách sử dụng phương pháp tìm kiếm học thuật hệ thống trên các nền tảng IEEE Xplore, PubMed và Google Scholar, tôi đã xác định, đánh giá và tổng hợp 10 nguồn tài liệu được bình duyệt (peer-reviewed) xuất bản trong khoảng thời gian từ năm 2018 đến năm 2024. Nghiên cứu áp dụng khung tiêu chuẩn CRAAP để kiểm chứng độ tin cậy của nguồn tài liệu và trình bày các phát hiện về hiệu quả lâm sàng, công nghệ bộ truyền động, và kết quả tương tác giữa người và robot.`,
+    objectives:[
+      "Xây dựng câu hỏi nghiên cứu rõ ràng về lĩnh vực robot mềm trong phục hồi chức năng",
+      "Thực hiện tìm kiếm trên các cơ sở dữ liệu học thuật một cách hệ thống bằng các từ khóa mục tiêu",
+      "Đánh giá độ tin cậy của nguồn tài liệu bằng khung kiểm chứng CRAAP",
+      "Tổng hợp các phát hiện từ 10 bài báo khoa học đã qua bình duyệt thành một bài tổng quan văn liệu (literature review) mạch lạc",
+      "Tạo ra danh mục tài liệu tham khảo được định dạng chuẩn xác theo phong cách APA ấn bản lần thứ 7"
+    ],
+    highlights:[
+      {icon:"🦾",title:"Phát hiện Chính (Key Finding)",text:"Liệu pháp sử dụng bộ khung robot mềm (soft exosuit) cho thấy sự cải thiện lớn hơn 32% trong thang điểm Đánh giá Vận động (Motor Assessment Scale) so với việc chỉ sử dụng các liệu pháp truyền thống đơn thuần"},
+      {icon:"🔬",title:"Phương pháp Nghiên cứu (Research Method)",text:"Đánh giá hệ thống trên các nền tảng IEEE Xplore, PubMed, Semantic Scholar — Chọn lọc ra 10 nguồn tài liệu tiêu biểu từ hơn 40 nguồn đã được xem xét"},
+      {icon:"📊",title:"Chất lượng Nguồn (Source Quality)",text:"8/10 nguồn tài liệu được lập chỉ mục bởi IEEE hoặc Scopus; tất cả đều được xuất bản trong giai đoạn 2018–2024"},
+      {icon:"🤝",title:"Thông tin về HRI (HRI Insight)",text:"HRI - Tương tác Người và Robot: Sự tương thích của vật liệu mềm giúp cải thiện đáng kể sự tham gia và động lực của bệnh nhân trong các buổi trị liệu"}
+    ],
+    files:[
+      {name:"Research Report (Full)",       type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Hoàn thiện bài tổng quan văn liệu bao gồm các phần: Mở đầu, Phương pháp nghiên cứu, Kết quả, Phân tích và Danh mục tài liệu tham khảo theo chuẩn APA.",  size:"", href:"Soft Robotics.pdf"},
+    ]
+  },
+  3:{
+    num:"03",
+    title:"Prompt Engineering in Learning",
+    tag:"AI Applications · Prompt Engineering",
+    categories:["Prompt Engineering","ChatGPT","AI Literacy","LLMs"],
+    accent:"#CE93D8",
+    accentAlpha:"rgba(206,147,216,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#CE93D8 50%,#00E5FF 100%)",
+    meta:[
+      {label:"Project Type",  value:"Applied AI Report"},
+      {label:"Duration",      value:"Week 5 - 6"},
+      {label:"Tools Used",    value:"ChatGPT, Gemini"},
+      {label:"Deliverable",   value:"Prompt Engineering Report"}
+    ],
+    overview:`Dự án này ghi lại quá trình khám phá hệ thống về kỹ thuật đặt câu lệnh (prompt engineering) như một công cụ học tập cho các khái niệm Kỹ thuật Robot phức tạp. Thông qua ba nghiên cứu điển hình — Động học ngược (Inverse Kinematics), Học sâu (Deep Learning) và Mạng thần kinh (Neural Networks) — tôi đã thiết kế và tinh chỉnh các câu lệnh theo vòng lặp từ cấp độ Cơ bản đến Cải thiện và Nâng cao, nhằm phân tích cấu trúc câu lệnh ảnh hưởng thế nào đến chất lượng, độ chính xác và hiệu quả sư phạm của các lời giải thích do AI tạo ra.`,
+    objectives:[
+      "Hiểu các thành phần của một câu lệnh AI hiệu quả (vai trò, ngữ cảnh, định dạng, các ràng buộc)",
+      "Áp dụng khung tiến hóa câu lệnh 3 cấp độ: Cơ bản → Cải thiện → Nâng cao",
+      "Phân tích và đánh giá phản biện chất lượng đầu ra của AI qua các lần lặp câu lệnh",
+      "Ghi chép các quyết định thiết kế câu lệnh và tác động có thể đo lường được của chúng đối với kết quả đầu ra",
+      "Phản tư về việc sử dụng AI một cách có trách nhiệm như một công cụ học tập, chứ không phải là một lối đi tắt"
+    ],
+    highlights:[
+      {icon:"🧠",title:"3 Nghiên cứu điển hình (3 Case Studies)",text:"Bao gồm: Động học ngược (Inverse Kinematics), Học sâu (Deep Learning) và Mạng thần kinh (Neural Networks) — mỗi chủ đề đều đi kèm với các bộ câu lệnh ở mức độ Cơ bản/Cải thiện/Nâng cao"},
+      {icon:"📈",title:"Thông tin then chốt (Key Insight)",text:"Các câu lệnh nâng cao (có thiết lập vai trò + ngữ cảnh + định dạng + ràng buộc) luôn tạo ra kết quả đầu ra có ích cho việc giáo dục gấp 3 lần so với thông thường"},
+      {icon:"✍️",title:"Thực hành tốt nhất (Best Practice)",text:"Việc xác định rõ nền tảng kiến thức của học sinh (ví dụ: sinh viên năm nhất, chưa có kinh nghiệm về Machine Learning) sẽ giúp AI đưa ra các lời giải thích được điều chỉnh phù hợp và chuẩn xác hơn"},
+      {icon:"⚠️",title:"Hạn chế của AI (AI Limitation)",text:"Ngay cả những câu lệnh nâng cao nhất cũng không thể đảm bảo độ chính xác hoàn toàn về mặt sự thật — tất cả kết quả đầu ra đều cần được kiểm chứng độc lập"}
+    ],
+    files:[
+      {name:"Prompt Engineering Report",   type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo đầy đủ bao gồm 3 nghiên cứu điển hình, các bảng tiến hóa câu lệnh, phân tích kết quả đầu ra của AI và các bài học kinh nghiệm.",        size:"", href:"prompt_engineering_report.docx"},
+    ]
+  },
+  4:{
+    num:"04",
+    title:"Online Collaboration in AI Research",
+    tag:"Team Collaboration · Project Management",
+    categories:["Collaboration","Google Workspace","Teamwork","Workflow"],
+    accent:"#29B6F6",
+    accentAlpha:"rgba(41,182,246,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#29B6F6 55%,#00E5FF 100%)",
+    meta:[
+      {label:"Project Type",  value:"Team Collaboration Project"},
+      {label:"Duration",      value:"Week 7 – 8"},
+      {label:"Tools Used",    value:"Drive · Docs · Sheets · Messenger"},
+      {label:"Deliverable",   value:"Collaborative Research Document"}
+    ],
+    overview:`Dự án này ghi lại quá trình nghiên cứu hợp tác của nhóm chúng tôi về chủ đề "Ứng dụng của Trí tuệ Nhân tạo trong Robot Điều khiển từ xa" (Applications of Artificial Intelligence in Teleoperation Robotics). Sử dụng Google Workspace làm môi trường kỹ thuật số chung, chúng tôi đã phối hợp qua các giai đoạn nghiên cứu, viết và soát xét trong vòng ba tuần. Tôi đảm nhận vai trò Điều phối viên Nghiên cứu — quản lý cấu trúc thư mục Drive dùng chung, duy trì bảng theo dõi nguồn tài liệu trong Google Sheets, và soạn thảo các phần Mở đầu và Tổng quan văn liệu của tài liệu cuối cùng.`,
+    objectives:[
+      "Thiết lập một không gian làm việc chung có cấu trúc trên Google Drive để quản lý tệp tin cho toàn nhóm",
+      "Xác định rõ vai trò và trách nhiệm của từng thành viên trong nhóm bằng bản điều lệ dự án (project charter)",
+      "Phối hợp cộng tác đồng bộ và không đồng bộ bằng Google Docs và ứng dụng nhắn tin (Messenger)",
+      "Duy trì bảng theo dõi nguồn tài liệu chung trong Google Sheets kèm theo các đánh giá về độ tin cậy",
+      "Tạo ra một tài liệu cuối cùng thống nhất, tích hợp tất cả các đóng góp của các thành viên trong nhóm"
+    ],
+    highlights:[
+      {icon:"🌐",title:"Công cụ Cộng tác (Collaboration Tools)",text:"Google Drive + Docs + Sheets + Messenger được sử dụng như một không gian làm việc tích hợp xuyên suốt trong cả tuần"},
+      {icon:"👤",title:"Vai trò của tôi (My Role)",text:"Người điều phối Nghiên cứu: Phụ trách cấu trúc Drive, theo dõi nguồn tài liệu, viết phần Mở đầu và phần Tổng quan văn liệu"},
+      {icon:"⚡",title:"Thách thức đã giải quyết (Challenge Solved)",text:"Giải quyết xung đột phiên bản (đè dữ liệu) bằng cách thiết lập các khung giờ chỉnh sửa — mỗi thành viên sẽ chỉnh sửa phần được chỉ định vào các mốc thời gian cụ thể"},
+      {icon:"📝",title:"Bài học then chốt (Key Learning)",text:"Giao tiếp chính là kỹ năng kỹ thuật quan trọng nhất trong các dự án nhóm trực tuyến — nó còn quan trọng hơn cả chuyên môn cá nhân"}
+    ],
+    files:[
+      {name:"Team Research Document",        type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài báo cáo nghiên cứu hợp tác về AI trong Robot điều khiển từ xa, đã được tích hợp đầy đủ tất cả các phần.",             size:"", href:"teamwork-personal.docx"}
+    ]
+  },
+  5:{
+    num:"05",
+    title:"Generative AI in Infographic Design",
+    tag:"Generative AI · Visual Design",
+    categories:["Generative AI","Canva AI","Infographic","Creative"],
+    accent:"#64FFDA",
+    accentAlpha:"rgba(100,255,218,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#64FFDA 50%,#00E5FF 100%)",
+    meta:[
+      {label:"Project Type",  value:"Creative AI Design Project"},
+      {label:"Duration",      value:"Week 9 – 10"},
+      {label:"Tools Used",    value:"ChatGPT · Gemini · Canva AI"},
+      {label:"Deliverable",   value:"Professional Infographic + Process Report"}
+    ],
+    overview:`Dự án này là điểm nhấn hình ảnh trung tâm trong hồ sơ năng lực (portfolio). Tôi đã sử dụng trí tuệ nhân tạo tạo sinh (Generative AI) như một đối tác sáng tạo để thiết kế một bản infographic chuyên nghiệp về chủ đề "AI trong Robot điều khiển từ xa". Quy trình được thực hiện qua bốn giai đoạn: Nghiên cứu nội dung với sự hỗ trợ của AI (ChatGPT + Gemini), lập kế hoạch cấu trúc nội dung, thiết kế lặp lại bằng Canva AI (qua ba phiên bản), và tinh chỉnh thủ công bởi con người. Kết quả cho thấy cả kỹ năng sử dụng AI về mặt kỹ thuật lẫn khả năng đánh giá phản biện cần thiết để thẩm định, lựa chọn và cải thiện các sản phẩm sáng tạo do AI tạo ra.`,
+    objectives:[
+      "Sử dụng ChatGPT và Gemini để nghiên cứu và xây dựng cấu trúc nội dung infographic về robot điều khiển từ xa",
+      "Thiết kế các câu lệnh (prompts) Canva AI hiệu quả để tạo bố cục và phong cách hình ảnh",
+      "Thực hiện lặp lại qua ít nhất 3 phiên bản thiết kế, ghi chép lại các cải tiến ở mỗi giai đoạn",
+      "Áp dụng tư duy phản biện để đánh giá và tinh chỉnh các yếu tố thiết kế do AI tạo ra",
+      "Tạo ra một bản infographic chất lượng xuất bản, phù hợp cho việc thuyết trình học thuật"
+    ],
+    highlights:[
+      {icon:"🎨",title:"Các phiên bản thiết kế (Design Iterations)",text:"Bao gồm 3 phiên bản hoàn chỉnh: v1: Mặc định từ AI (chung chung) → v2: Sử dụng câu lệnh mục tiêu với chủ đề tối (dark theme) → v3: Tinh chỉnh thủ công bởi con người"},
+      {icon:"🤖",title:"Cộng tác với AI (AI Collaboration)",text:"Sử dụng ChatGPT để lập cấu trúc nội dung, Gemini để mở rộng nghiên cứu, và Canva AI để tạo bố cục cũng như phong cách thiết kế"},
+      {icon:"💡",title:"Nhận thức cốt lõi (Core Insight)",text:"AI tạo ra các điểm khởi đầu xuất sắc, nhưng chính khả năng thẩm mỹ và kiến thức chuyên môn của con người mới là yếu tố thúc đẩy chất lượng cuối cùng"},
+      {icon:"📐",title:"Kết quả (Final Result)",text:"Một bản Infographic khổ dọc A4 bao quát 5 lĩnh vực ứng dụng AI, 4 công nghệ then chốt và các thành phần trực quan hóa dữ liệu"}
+    ],
+    files:[
+      {name:"Final Infographic",              type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bản infographic cuối cùng về AI trong Robot điều khiển từ xa đạt chất lượng xuất bản (khổ A4, tệp PDF sẵn sàng để in).",            size:"", href:"AI in Teleoperation Robotics.pdf"},
+      {name:"Design Process Report",          type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo văn bản ghi lại từng giai đoạn: các câu lệnh nghiên cứu, các quyết định thiết kế và so sánh giữa các phiên bản.",    size:"", href:"inforgraphic.docx"},
+    ]
+  },
+  6:{
+    num:"06",
+    title:"Responsible AI Usage in Learning",
+    tag:"AI Ethics · Academic Integrity",
+    categories:["AI Ethics","Integrity","Responsible AI","Reflection"],
+    accent:"#FF8F00",
+    accentAlpha:"rgba(255,143,0,.1)",
+    gradient:"linear-gradient(135deg,#fff 0%,#FF8F00 55%,#FFD54F 100%)",
+    meta:[
+      {label:"Project Type",  value:"Reflective Essay & Framework"},
+      {label:"Duration",      value:"Week 11 – 12"},
+      {label:"Tools Used",    value:"ChatGPT, Gemini, Academic Sources"},
+      {label:"Deliverable",   value:"Responsible AI Framework Report"}
+    ],
+    overview:`Dự án phản tư này xem xét vai trò của trí tuệ nhân tạo trong giáo dục đại học dưới góc độ đạo đức và liêm chính học thuật. Dựa trên kinh nghiệm của bản thân qua tất cả năm dự án trước đó, tôi đã xây dựng một khung quy tắc cá nhân gồm 7 nguyên tắc để sử dụng AI có trách nhiệm trong học tập. Dự án phân tích cả những lợi ích đáng kể và những rủi ro nghiêm trọng của AI trong bối cảnh học thuật, đồng thời kết thúc bằng một bản cam kết cá nhân về việc tương tác với AI một cách đạo đức xuyên suốt quá trình đào tạo kỹ thuật của mình.`,
+    objectives:[
+      "Phân tích phản biện những lợi ích và rủi ro của việc sử dụng công cụ AI trong môi trường học thuật",
+      "Xác định các khía cạnh then chốt về liêm chính học thuật khi sử dụng AI tạo sinh",
+      "Xây dựng một khung đạo đức cá nhân để sử dụng AI có trách nhiệm trong học tập",
+      "Phát biểu rõ ràng sự khác biệt giữa việc dùng AI như một công cụ học tập và việc dùng AI như một lối đi tắt (gian lận)",
+      "Tạo ra một bản cam kết phản tư về việc tương tác với AI một cách đạo đức"
+    ],
+    highlights:[
+      {icon:"⚖️",title:"7 Nguyên tắc (7 Principles)",text:"Một khung đạo đức cá nhân: từ việc coi 'AI là công cụ hỗ trợ' cho đến việc 'chịu trách nhiệm hoàn toàn về sản phẩm học thuật'"},
+      {icon:"🛡️",title:"Lập trường cốt lõi (Key Stance)",text:"Sự minh bạch về việc sử dụng AI là điều không thể thương lượng — việc công khai sử dụng AI giúp bảo vệ sự liêm chính học thuật và xây dựng niềm tin"},
+      {icon:"🔍",title:"Phát hiện quan trọng (Critical Finding)",text:"Am hiểu về AI (AI literacy) nghĩa là biết được KHI NÀO không nên sử dụng AI — nhận diện được những nhiệm vụ mà việc tự nỗ lực độc lập sẽ giúp xây dựng các kỹ năng thiết yếu"},
+      {icon:"📜",title:"Cam kết (Commitment)",text:"Trách nhiệm đối với việc học, công việc và sự liêm chính của tôi hoàn toàn thuộc về chính tôi — Nguyễn Chí Anh"}
+    ],
+    files:[
+      {name:"Responsible AI Report",          type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài luận phản tư đầy đủ: AI trong giáo dục, lợi ích, rủi ro, khung đạo đức và bản cam kết.",  size:"", href:"used AI responsibility.docx"}
+    ]
+  }
+};
+
+/* ══ FILE TYPE → ICON SVG ══ */
+function fileIcon(type,color){
+  const icons={
+    pdf:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="4" y="2" width="18" height="24" rx="2" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><path d="M18 2v6h6" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/><text x="16" y="20" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6" font-weight="900" fill="${color}">PDF</text></svg>`,
+    docx:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="4" y="2" width="18" height="24" rx="2" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><path d="M18 2v6h6" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/><text x="16" y="20" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="900" fill="${color}">DOC</text></svg>`,
+    xlsx:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="4" y="2" width="18" height="24" rx="2" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><path d="M18 2v6h6" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/><text x="16" y="20" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="900" fill="${color}">XLS</text></svg>`,
+    zip:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="4" y="2" width="18" height="24" rx="2" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><path d="M18 2v6h6" stroke="${color}" stroke-width="1.4" stroke-linecap="round"/><text x="16" y="20" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="900" fill="${color}">ZIP</text></svg>`,
+    mp4:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="2" y="6" width="24" height="18" rx="3" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><polygon points="13,11 13,19 21,15" fill="${color}" opacity=".8"/></svg>`,
+    png:`<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><rect x="2" y="4" width="26" height="22" rx="3" fill="${color}" opacity=".18" stroke="${color}" stroke-width="1.4"/><circle cx="10" cy="12" r="3" fill="${color}" opacity=".5"/><polyline points="2,22 10,14 16,20 20,16 28,22" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/></svg>`
+  };
+  return icons[type]||icons.pdf;
+}
+
+/* ══ RENDER PROJECT ══ */
+function render(id){
+  const p = PROJECTS[id];
+  if(!p){document.body.innerHTML='<p style="color:#fff;padding:80px;font-size:18px">Project not found. <a href="portfolio-design-prototype.html" style="color:#00E5FF">← Back</a></p>';return;}
+
+  // Set CSS accent var
+  document.documentElement.style.setProperty('--proj-accent', p.accent);
+  document.documentElement.style.setProperty('--proj-accent-alpha', p.accentAlpha);
+  document.title = `Project ${p.num} — ${p.title}`;
+  document.getElementById('nav-id').textContent = `PROJECT ${p.num}`;
+
+  // ── HERO ──
+  document.getElementById('proj-hero-wrap').innerHTML=`
+  <section class="proj-hero">
+    <div class="hero-glow" style="background:radial-gradient(circle,${p.accentAlpha} 0%,transparent 70%)"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner anim">
+      <div class="proj-eyebrow" style="color:${p.accent};border-color:${p.accent}33;background:${p.accentAlpha}">${p.tag}</div>
+      <h1 class="proj-h1"><span style="background:${p.gradient}">${p.title}</span></h1>
+      <div class="proj-cats">${p.categories.map(c=>`<span class="proj-cat">${c}</span>`).join('')}</div>
+    </div>
+  </section>`;
+
+  // ── META ──
+  document.getElementById('proj-meta-wrap').innerHTML=`
+  <div class="meta-bar">
+    <div class="meta-row">${p.meta.map(m=>`
+      <div class="meta-c anim">
+        <div class="meta-lbl">${m.label}</div>
+        <div class="meta-val" style="color:${p.accent}">${m.value}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
+  // ── INTRO ──
+  document.getElementById('proj-intro-wrap').innerHTML=`
+  <section class="intro-section">
+    <div class="part-label anim">
+      <span class="part-num" style="color:${p.accent};background:${p.accentAlpha};border-color:${p.accent}33">PART 01</span>
+      <span class="part-title">Project Introduction</span>
+    </div>
+    <div class="intro-grid">
+      <div class="overview-card anim">
+        <div class="card-ttl" style="color:${p.accent}">Overview</div>
+        <p>${p.overview}</p>
+        <div class="card-ttl" style="color:${p.accent};margin-top:4px">Learning Objectives</div>
+        <ul class="objectives">${p.objectives.map(o=>`<li style="--proj-accent:${p.accent}">${o}</li>`).join('')}</ul>
+      </div>
+      <div class="highlights-card anim">
+        <div class="card-ttl" style="color:${p.accent}">Key Highlights</div>
+        ${p.highlights.map(h=>`
+        <div class="hl-item">
+          <div class="hl-icon">${h.icon}</div>
+          <div class="hl-ttl">${h.title}</div>
+          <div class="hl-txt">${h.text}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+
+  // ── FILES ──
+  const fileCards = p.files.map(f=>{
+    const isPlaceholder = f.href==='#';
+    return `
+    <div class="file-card anim">
+      <div class="file-icon-wrap" style="background:${f.bgColor}">
+        ${fileIcon(f.type, f.typeColor)}
+      </div>
+      <div class="file-name">${f.name}</div>
+      <div class="file-desc">${f.desc}</div>
+      <div class="file-meta">
+        <span class="file-type-badge" style="background:${f.bgColor};color:${f.typeColor};border:1px solid ${f.typeColor}33">${f.type.toUpperCase()}</span>
+        <span class="file-size">${f.size}</span>
+      </div>
+      <a href="${f.href}" class="dl-btn${isPlaceholder?' placeholder':''}" ${!isPlaceholder?'download':''}>
+        ${isPlaceholder
+          ? `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Coming Soon`
+          : `<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download`
+        }
+      </a>
+    </div>`;
+  }).join('');
+
+  document.getElementById('proj-files-wrap').innerHTML=`
+  <section class="files-section">
+    <div class="part-label anim">
+      <span class="part-num" style="color:${p.accent};background:${p.accentAlpha};border-color:${p.accent}33">PART 02</span>
+      <span class="part-title">Project Report Files</span>
+    </div>
+    <div class="files-grid">
+      ${fileCards}
+      </div>
+    </div>
+  </section>`;
+
+// ── PREV / NEXT ──
+  const prev=id>1?id-1:null, next=id<6?id+1:null;
+  document.getElementById('proj-pn-wrap').innerHTML=`
+  <div class="pn-bar">
+    <a href="#${prev}" class="pn-btn${!prev?' hidden':''}">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Project ${prev?String(prev).padStart(2,'0'):''}
+    </a>
+    <span class="pn-center">PROJECT ${p.num} / 06</span>
+    <a href="#${next}" class="pn-btn${!next?' hidden':''}">
+      Project ${next?String(next).padStart(2,'0'):''}
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>`;
+
+  // trigger scroll animations
+  requestAnimationFrame(()=>runAnims());
+}
+
+/* ══ SCROLL ANIMATIONS ══ */
+function runAnims(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        const siblings=Array.from(e.target.parentElement.children).filter(el=>el.classList.contains('anim'));
+        const idx=siblings.indexOf(e.target);
+        setTimeout(()=>e.target.classList.add('vis'),idx*65);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:.08});
+  document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+}
+
+/* ══ ROUTER: read hash, re-render on hash change ══ */
+function getID(){return parseInt(window.location.hash.replace('#',''))||1;}
+function init(){render(getID());}
+window.addEventListener('hashchange',()=>{window.scrollTo(0,0);render(getID());});
+init();
+
+/* ══ NEURAL NETWORK CANVAS ══ */
+const cv=document.getElementById('bgCanvas'),ct=cv.getContext('2d');
+let W=cv.width=window.innerWidth,H=cv.height=window.innerHeight;
+window.addEventListener('resize',()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight});
+const N=42,D=160,nodes=Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,p:Math.random()*Math.PI*2}));
+(function draw(){
+  ct.clearRect(0,0,W,H);
+  for(let i=0;i<N;i++){
+    const n=nodes[i];
+    n.x+=n.vx;n.y+=n.vy;n.p+=.016;
+    if(n.x<0||n.x>W)n.vx*=-1;
+    if(n.y<0||n.y>H)n.vy*=-1;
+    for(let j=i+1;j<N;j++){
+      const m=nodes[j],dx=n.x-m.x,dy=n.y-m.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<D){const a=(1-d/D)*.18;ct.beginPath();ct.strokeStyle=`rgba(0,229,255,${a})`;ct.lineWidth=.5;ct.moveTo(n.x,n.y);ct.lineTo(m.x,m.y);ct.stroke();}
+    }
+    const pm=.5+.5*Math.sin(n.p);
+    ct.beginPath();ct.arc(n.x,n.y,1+.5*pm,0,Math.PI*2);ct.fillStyle=`rgba(0,229,255,${.3+.3*pm})`;ct.fill();
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
