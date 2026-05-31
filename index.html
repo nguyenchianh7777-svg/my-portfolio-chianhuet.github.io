@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIGITAL PORTFOLIO — Nguyen Chi Anh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════ DESIGN SYSTEM ═══════════════════════════ */
+:root {
+  --c-primary:#00E5FF; --c-secondary:#64FFDA; --c-accent:#00FFC6;
+  --c-bg:#050B16; --c-surface:#0A192F; --c-surface2:#112240;
+  --c-text:#FFFFFF; --c-text2:#B0BEC5;
+  --c-border:rgba(0,229,255,0.15); --c-glow:rgba(0,229,255,0.28);
+  --f-head:'Montserrat','Be Vietnam Pro',sans-serif;
+  --f-ui:'Be Vietnam Pro',sans-serif;
+  --f-body:'Roboto',sans-serif;
+  --ease:0.32s cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--c-bg);color:var(--c-text);font-family:var(--f-body);overflow-x:hidden;line-height:1.65}
+#bgCanvas{position:fixed;inset:0;z-index:0;opacity:.38;pointer-events:none}
+.wrap{position:relative;z-index:1}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,11,22,.82);backdrop-filter:blur(22px);border-bottom:1px solid var(--c-border)}
+.logo{font-family:var(--f-head);font-size:17px;font-weight:900;letter-spacing:3px;color:var(--c-primary);text-shadow:0 0 22px var(--c-glow)}
+.logo em{color:#fff;font-style:normal}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-family:var(--f-ui);font-size:11px;font-weight:600;color:var(--c-text2);text-decoration:none;padding:6px 12px;border-radius:6px;letter-spacing:1.5px;text-transform:uppercase;transition:var(--ease)}
+.nav-links a:hover{color:var(--c-primary);background:rgba(0,229,255,.09)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 80px 80px;position:relative;overflow:hidden;text-align:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
+.hero-orb{position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.11),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:orb 5s ease-in-out infinite}
+@keyframes orb{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.1);opacity:1}}
+.hero-inner{max-width:900px;animation:fadeUp .9s ease-out both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.28);border-radius:100px;padding:5px 16px;margin-bottom:30px;font-family:var(--f-ui);font-size:11px;font-weight:700;color:var(--c-primary);letter-spacing:2.5px;text-transform:uppercase}
+.badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c-primary);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.eyebrow{font-family:var(--f-ui);font-size:12px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--c-secondary);margin-bottom:18px}
+.h-title{font-family:var(--f-head);font-size:clamp(56px,9vw,108px);font-weight:900;line-height:.93;letter-spacing:-3px;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,var(--c-primary) 50%,var(--c-secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.h-sub{font-family:var(--f-ui);font-size:clamp(15px,1.8vw,21px);font-weight:500;color:var(--c-text2);margin-bottom:22px}
+.h-tag{font-family:var(--f-ui);font-size:14px;color:rgba(176,190,197,.65);font-style:italic;margin-bottom:44px}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-p{font-family:var(--f-ui);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));color:var(--c-bg);border:none;border-radius:7px;cursor:pointer;text-decoration:none;transition:var(--ease);box-shadow:0 0 30px rgba(0,229,255,.3)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,229,255,.5)}
+.btn-g{font-family:var(--f-ui);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;background:transparent;color:var(--c-primary);border:1px solid rgba(0,229,255,.38);border-radius:7px;cursor:pointer;text-decoration:none;transition:var(--ease)}
+.btn-g:hover{background:rgba(0,229,255,.09);border-color:var(--c-primary)}
+
+/* ── STATS ── */
+.stats{padding:64px 80px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1200px;margin:0 auto}
+.stat-card{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:18px;padding:28px;text-align:center;backdrop-filter:blur(20px);transition:var(--ease);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:-100%;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--c-primary),transparent);animation:shim 3s ease-in-out infinite}
+@keyframes shim{0%{left:-100%}100%{left:100%}}
+.stat-card:hover{border-color:rgba(0,229,255,.38);transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,229,255,.08)}
+.stat-n{font-family:var(--f-head);font-size:54px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--c-primary),var(--c-accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.stat-l{font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c-text2)}
+
+/* ── SECTION COMMON ── */
+section{padding:88px 80px;position:relative}
+.s-header{text-align:center;margin-bottom:56px}
+.s-tag{display:inline-block;font-family:var(--f-ui);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--c-primary);background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.18);padding:4px 13px;border-radius:100px;margin-bottom:14px}
+.s-title{font-family:var(--f-head);font-size:clamp(30px,3.8vw,50px);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+.hi{background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s-sub{font-family:var(--f-ui);font-size:15px;color:var(--c-text2);max-width:580px;margin:0 auto}
+.divl{height:1px;background:linear-gradient(90deg,transparent,var(--c-border),transparent);margin:0 80px}
+
+/* ── SKILLS ── */
+.skills-wrapper{display:flex;flex-direction:column;gap:44px;max-width:1080px;margin:0 auto}
+.skills-list{display:flex;flex-direction:column;gap:18px;max-width:640px;margin:0 auto;width:100%}
+.sk-info{display:flex;justify-content:space-between;margin-bottom:7px}
+.sk-name{font-family:var(--f-ui);font-size:13px;font-weight:600}
+.sk-pct{font-family:var(--f-head);font-size:13px;font-weight:700;color:var(--c-primary)}
+.sk-track{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.sk-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--c-primary),var(--c-secondary));box-shadow:0 0 10px rgba(0,229,255,.4);transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.hex-grid{display:grid;grid-template-columns:repeat(3,200px);gap:14px;justify-content:center}
+.hex-c{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:11px;padding:28px 14px;text-align:center;backdrop-filter:blur(20px);transition:var(--ease)}
+.hex-c:hover{border-color:rgba(0,229,255,.38);background:rgba(0,229,255,.05);transform:translateY(-3px)}
+.hex-ico{font-size:30px;margin-bottom:9px}
+.hex-lbl{font-family:var(--f-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--c-text2);text-transform:uppercase}
+
+/* ── AI TOOLS ── */
+.tools-bg{background:rgba(10,25,47,.28)}
+.tools-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:1080px;margin:0 auto}
+.tool-c{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:11px;padding:22px 14px;text-align:center;backdrop-filter:blur(20px);transition:var(--ease)}
+.tool-c:hover{border-color:rgba(0,229,255,.4);box-shadow:0 0 22px rgba(0,229,255,.12);transform:translateY(-4px)}
+.tool-ico{font-size:30px;margin-bottom:9px;display:block}
+.tool-nm{font-family:var(--f-ui);font-size:12px;font-weight:700;margin-bottom:3px}
+.tool-cat{font-family:var(--f-ui);font-size:9px;color:var(--c-text2);text-transform:uppercase;letter-spacing:1.5px}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1200px;margin:0 auto}
+.proj-c{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:18px;overflow:hidden;backdrop-filter:blur(20px);transition:var(--ease);cursor:pointer;display:flex;flex-direction:column}
+.proj-c:hover{border-color:rgba(0,229,255,.45);transform:translateY(-7px);box-shadow:0 28px 56px rgba(0,0,0,.4),0 0 48px rgba(0,229,255,.1)}
+/* ─ card header image area ─ */
+.proj-head{height:210px;position:relative;overflow:hidden;flex-shrink:0}
+.proj-head svg{position:absolute;inset:0;width:100%;height:100%}
+/* scan-line overlay */
+.proj-head::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:2}
+/* top shimmer on hover */
+.proj-head::before{content:'';position:absolute;top:0;left:-110%;width:60%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.08),transparent);transform:skewX(-18deg);transition:left .55s ease;z-index:3}
+.proj-c:hover .proj-head::before{left:160%}
+/* badge */
+.proj-num{position:absolute;top:14px;left:14px;font-family:var(--f-head);font-size:9px;font-weight:800;letter-spacing:2.5px;color:var(--c-primary);background:rgba(5,11,22,.72);border:1px solid rgba(0,229,255,.35);padding:4px 10px;border-radius:5px;z-index:4;backdrop-filter:blur(8px)}
+/* "View Project" pill — revealed on hover */
+.proj-view{position:absolute;bottom:14px;right:14px;font-family:var(--f-ui);font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));color:var(--c-bg);border-radius:100px;opacity:0;transform:translateY(6px);transition:opacity .28s ease,transform .28s ease;z-index:4}
+.proj-c:hover .proj-view{opacity:1;transform:translateY(0)}
+/* illustration SVG base */
+.proj-ill{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.proj-c:hover .proj-ill{transform:scale(1.06) translateY(-4px)}
+/* body */
+.proj-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.proj-tag{font-family:var(--f-ui);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c-secondary);margin-bottom:9px}
+.proj-title{font-family:var(--f-ui);font-size:17px;font-weight:700;margin-bottom:9px;line-height:1.3}
+.proj-desc{font-size:12.5px;color:var(--c-text2);line-height:1.6;margin-bottom:18px;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.stag{font-family:var(--f-ui);font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.14);color:var(--c-primary)}
+/* per-project bg gradients */
+.p1 .proj-head{background:radial-gradient(ellipse at 70% 40%,#1a237e 0%,#050b20 70%)}
+.p2 .proj-head{background:radial-gradient(ellipse at 30% 60%,#00695c 0%,#051a16 70%)}
+.p3 .proj-head{background:radial-gradient(ellipse at 60% 50%,#6a1b9a 0%,#120820 70%)}
+.p4 .proj-head{background:radial-gradient(ellipse at 50% 70%,#0277bd 0%,#040d1a 70%)}
+.p5 .proj-head{background:radial-gradient(ellipse at 40% 40%,#37474f 0%,#0a1118 70%)}
+.p6 .proj-head{background:radial-gradient(ellipse at 60% 50%,#e65100 0%,#1a0800 70%)}
+
+/* ── ABOUT PAGE PREVIEW ── */
+.about-layout{display:grid;grid-template-columns:340px 1fr;gap:48px;max-width:1100px;margin:0 auto;align-items:start}
+.profile-card{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:20px;padding:36px;backdrop-filter:blur(20px);text-align:center;position:sticky;top:90px}
+.avatar-ring{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));padding:3px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--c-surface2);display:flex;align-items:center;justify-content:center;font-size:42px}
+.p-name{font-family:var(--f-head);font-size:22px;font-weight:800;margin-bottom:4px}
+.p-major{font-family:var(--f-ui);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--c-primary);margin-bottom:20px}
+.p-info-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--c-border);font-family:var(--f-ui);font-size:12px;color:var(--c-text2)}
+.p-info-icon{font-size:16px}
+.about-content{display:flex;flex-direction:column;gap:24px}
+.info-card{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:14px;padding:28px;backdrop-filter:blur(20px)}
+.info-card h3{font-family:var(--f-ui);font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--c-primary);margin-bottom:14px}
+.info-card p{font-size:14px;color:var(--c-text2);line-height:1.75}
+.roadmap{display:flex;flex-direction:column;gap:0}
+.road-item{display:flex;gap:16px;padding-bottom:24px;position:relative}
+.road-item:last-child{padding-bottom:0}
+.road-dot{flex-shrink:0;width:12px;height:12px;border-radius:50%;background:var(--c-primary);box-shadow:0 0 10px rgba(0,229,255,.5);margin-top:5px;z-index:1}
+.road-line{position:absolute;left:5.5px;top:16px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--c-primary),transparent)}
+.road-item:last-child .road-line{display:none}
+.road-text h4{font-family:var(--f-ui);font-size:13px;font-weight:700;margin-bottom:3px}
+.road-text p{font-size:12.5px;color:var(--c-text2);line-height:1.6}
+
+/* ── DESIGN SYSTEM ── */
+.ds-bg{background:rgba(10,25,47,.22)}
+.ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1080px;margin:0 auto}
+.ds-card{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:18px;padding:30px;backdrop-filter:blur(20px)}
+.ds-ttl{font-family:var(--f-head);font-size:18px;font-weight:800;color:var(--c-primary);margin-bottom:18px;letter-spacing:-.3px}
+.pal{display:flex;gap:10px;flex-wrap:wrap}
+.swatch-w{display:flex;flex-direction:column;align-items:center;gap:5px}
+.swatch{width:46px;height:46px;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.sw-lbl{font-family:var(--f-ui);font-size:9px;color:var(--c-text2);text-align:center}
+.f-spec{margin-bottom:14px}
+.f-lbl{font-size:10px;color:var(--c-primary);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px;font-family:var(--f-ui)}
+.f-h{font-family:var(--f-head);font-size:26px;font-weight:900;line-height:1}
+.f-b{font-family:var(--f-body);font-size:14px;color:var(--c-text2);line-height:1.6}
+code{background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.18);border-radius:4px;padding:1px 8px;font-size:11.5px;color:var(--c-primary);font-family:'Courier New',monospace}
+
+/* ── IMPL GUIDE ── */
+.guide-steps{display:flex;flex-direction:column;gap:18px;max-width:1000px;margin:0 auto}
+.g-step{display:flex;gap:18px;background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:12px;padding:22px;backdrop-filter:blur(20px);transition:var(--ease)}
+.g-step:hover{border-color:rgba(0,229,255,.28)}
+.g-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--c-primary),var(--c-secondary));display:flex;align-items:center;justify-content:center;font-family:var(--f-head);font-size:15px;font-weight:900;color:var(--c-bg)}
+.g-con h4{font-family:var(--f-ui);font-size:15px;font-weight:700;margin-bottom:5px}
+.g-con p{font-size:13px;color:var(--c-text2);line-height:1.65}
+
+/* ── PROMPT CARDS ── */
+.prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1080px;margin:0 auto}
+.prompt-card{background:rgba(10,25,47,.82);border:1px solid var(--c-border);border-radius:14px;padding:24px;backdrop-filter:blur(20px)}
+.prompt-page{font-family:var(--f-ui);font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--c-primary);margin-bottom:10px}
+.prompt-type{font-family:var(--f-ui);font-size:11px;color:var(--c-secondary);margin-bottom:8px;font-weight:600}
+.prompt-text{background:rgba(0,0,0,.3);border:1px solid rgba(0,229,255,.12);border-radius:8px;padding:12px;font-size:12px;color:var(--c-text2);line-height:1.65;font-family:'Courier New',monospace}
+
+/* ── TAB SYSTEM (page preview) ── */
+.tab-bar{display:flex;gap:4px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+.tab{font-family:var(--f-ui);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border-radius:6px;border:1px solid var(--c-border);color:var(--c-text2);cursor:pointer;transition:var(--ease);background:transparent}
+.tab.active{background:var(--c-primary);color:var(--c-bg);border-color:var(--c-primary)}
+.tab:hover:not(.active){border-color:var(--c-primary);color:var(--c-primary)}
+.page-view{display:none}
+.page-view.active{display:block}
+
+/* ── FOOTER ── */
+footer{padding:48px 80px;border-top:1px solid var(--c-border);text-align:center}
+.foot-logo{font-family:var(--f-head);font-size:22px;font-weight:900;letter-spacing:4px;color:var(--c-primary);margin-bottom:12px}
+.foot-t{font-family:var(--f-ui);font-size:12.5px;color:var(--c-text2)}
+
+/* ── ANIMATE ── */
+.anim{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.anim.vis{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .about-layout,.ds-grid,.prompt-grid{grid-template-columns:1fr}
+  .hex-grid{grid-template-columns:repeat(3,1fr)}
+  .proj-grid,.tools-grid{grid-template-columns:repeat(2,1fr)}
+  nav,section,.stats,.hero{padding-left:24px;padding-right:24px}
+  .divl{margin:0 24px}
+}
+@media(max-width:580px){
+  .proj-grid,.tools-grid,.stats-grid{grid-template-columns:1fr}
+  .h-title{font-size:52px}
+}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="logo">NCA<em>.</em>Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about-preview">About me</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="home" class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-inner">
+    <div class="badge">First-Year Robotics Engineering · 2025-2026</div>
+    <p class="eyebrow">Nguyen Chi Anh &nbsp;·&nbsp; University of Engineering and Technology</p>
+    <h1 class="h-title">DIGITAL<br>PORTFOLIO</h1>
+    <p class="h-sub">Digital Technology and Artificial Intelligence Applications</p>
+    <p class="h-tag">"Exploring the Future Through Digital Innovation and Responsible AI"</p>
+    <div class="cta-row">
+      <a href="#about-preview" class="btn-g">About Me</a>
+      <a href="#projects" class="btn-p">Explore 6 Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-card anim"><div class="stat-n">06</div><div class="stat-l">Projects Completed</div></div>
+    <div class="stat-card anim"><div class="stat-n">10+</div><div class="stat-l">AI Tools Used</div></div>
+    <div class="stat-card anim"><div class="stat-n">12+</div><div class="stat-l">Academic Sources</div></div>
+    <div class="stat-card anim"><div class="stat-n">7</div><div class="stat-l">Core Skills Built</div></div>
+  </div>
+</div>
+<div class="divl"></div>
+
+<!-- ═══ ABOUT PAGE PREVIEW ═══ -->
+<section id="about-preview">
+  <div class="s-header anim">
+    <span class="s-tag">Page Preview</span>
+    <h2 class="s-title">About <span class="hi">Me</span></h2>
+    <p class="s-sub">Professional profile — replicate this layout on your Google Sites "About Me" page.</p>
+  </div>
+  <div class="about-layout">
+    <div class="profile-card anim">
+      <div class="avatar-ring"><div class="avatar-inner">🤖</div></div>
+      <div class="p-name">Nguyen Chi Anh</div>
+      <div class="p-major">Robotics Engineering</div>
+      <div class="p-info-row"><span class="p-info-icon">🎓</span>First-Year Student · 2025-2026</div>
+      <div class="p-info-row"><span class="p-info-icon">📍</span>University of Engineering and Technology - VNU</div>
+      <div class="p-info-row"><span class="p-info-icon">🤖</span>Robotics & AI Enthusiast</div>
+      <div class="p-info-row"><span class="p-info-icon">🔬</span>Biomedical Research Interest</div>
+    </div>
+    <div class="about-content">
+      <div class="info-card anim">
+        <h3>Personal Introduction</h3>
+        <p>Hello! I am Nguyen Chi Anh, a first-year Robotics Engineering student passionate about the intersection of artificial intelligence and physical automation. This portfolio documents my learning journey through the course <em>Digital Technology and Artificial Intelligence Applications</em>, where I developed skills in digital literacy, academic research, prompt engineering, and responsible AI usage. My goal is to become a robotics engineer who leverages AI to create human-centered automation systems.</p>
+      </div>
+      <div class="info-card anim">
+        <h3>Career Aspirations</h3>
+        <p>I aspire to specialize in soft robotics and human-robot interaction, contributing to biomedical rehabilitation technologies. Long-term, I aim to conduct research at the intersection of AI and physical robotics — developing systems that enhance human capabilities rather than replace them. I believe the future of engineering lies in responsible, ethically-grounded AI integration.</p>
+      </div>
+      <div class="info-card anim">
+        <h3>Learning Roadmap</h3>
+        <div class="roadmap">
+          <div class="road-item"><div class="road-dot"></div><div class="road-line"></div><div class="road-text"><h4>2025 — Digital Foundations</h4><p>Digital literacy, file management, Google Workspace, academic research skills</p></div></div>
+          <div class="road-item"><div class="road-dot"></div><div class="road-line"></div><div class="road-text"><h4>2026 — AI Integration</h4><p>Prompt engineering, generative AI tools, collaborative AI research workflows</p></div></div>
+          <div class="road-item"><div class="road-dot"></div><div class="road-line"></div><div class="road-text"><h4>2027 — Specialization</h4><p>Robotics programming, machine learning, soft robotics, biomedical engineering electives</p></div></div>
+          <div class="road-item"><div class="road-dot"></div><div class="road-line"></div><div class="road-text"><h4>2028–2029 — Research & Career</h4><p>Undergraduate thesis, internships, international collaboration, graduate school preparation</p></div></div>
+          <div class="road-item"><div class="road-dot"></div><div class="road-text"><h4>2029+ — Innovation</h4><p>Research in human-robot interaction, soft robotics for rehabilitation, AI-driven automation</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divl"></div>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="s-header anim">
+    <span class="s-tag">Core Competencies</span>
+    <h2 class="s-title">Skills <span class="hi">Developed</span></h2>
+    <p class="s-sub">A comprehensive overview of technical and academic skills acquired throughout the course.</p>
+  </div>
+  <div class="skills-wrapper">
+    <div class="skills-list">
+      <div class="anim"><div class="sk-info"><span class="sk-name">Digital Literacy</span><span class="sk-pct">92%</span></div><div class="sk-track"><div class="sk-fill" style="width:92%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">Prompt Engineering</span><span class="sk-pct">85%</span></div><div class="sk-track"><div class="sk-fill" style="width:85%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">Academic Research</span><span class="sk-pct">83%</span></div><div class="sk-track"><div class="sk-fill" style="width:83%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">AI Tool Applications</span><span class="sk-pct">90%</span></div><div class="sk-track"><div class="sk-fill" style="width:90%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">Critical Thinking</span><span class="sk-pct">89%</span></div><div class="sk-track"><div class="sk-fill" style="width:89%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">Team Collaboration</span><span class="sk-pct">83%</span></div><div class="sk-track"><div class="sk-fill" style="width:83%"></div></div></div>
+      <div class="anim"><div class="sk-info"><span class="sk-name">Information Evaluation</span><span class="sk-pct">86%</span></div><div class="sk-track"><div class="sk-fill" style="width:86%"></div></div></div>
+    </div>
+    <div class="hex-grid">
+      <div class="hex-c anim"><div class="hex-ico">🧠</div><div class="hex-lbl">AI Literacy</div></div>
+      <div class="hex-c anim"><div class="hex-ico">🔬</div><div class="hex-lbl">Research</div></div>
+      <div class="hex-c anim"><div class="hex-ico">💻</div><div class="hex-lbl">Digital Tools</div></div>
+      <div class="hex-c anim"><div class="hex-ico">🤖</div><div class="hex-lbl">Robotics</div></div>
+      <div class="hex-c anim"><div class="hex-ico">✍️</div><div class="hex-lbl">Prompting</div></div>
+      <div class="hex-c anim"><div class="hex-ico">🛡️</div><div class="hex-lbl">AI Ethics</div></div>
+      <div class="hex-c anim"><div class="hex-ico">📊</div><div class="hex-lbl">Data Analysis</div></div>
+      <div class="hex-c anim"><div class="hex-ico">🎨</div><div class="hex-lbl">Visual Design</div></div>
+      <div class="hex-c anim"><div class="hex-ico">🌐</div><div class="hex-lbl">Collaboration</div></div>
+    </div>
+  </div>
+</section>
+<div class="divl"></div>
+
+<!-- ═══ AI TOOLS ═══ -->
+<section class="tools-bg">
+  <div class="s-header anim">
+    <span class="s-tag">Technology Stack</span>
+    <h2 class="s-title">AI <span class="hi">Tools Used</span></h2>
+    <p class="s-sub">Curated selection of AI and digital tools utilized throughout the learning journey.</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-c anim"><span class="tool-ico">🤖</span><div class="tool-nm">ChatGPT</div><div class="tool-cat">Language AI</div></div>
+    <div class="tool-c anim"><span class="tool-ico">💎</span><div class="tool-nm">Gemini</div><div class="tool-cat">Google AI</div></div>
+    <div class="tool-c anim"><span class="tool-ico">🎨</span><div class="tool-nm">Canva AI</div><div class="tool-cat">Design AI</div></div>
+    <div class="tool-c anim"><span class="tool-ico">📄</span><div class="tool-nm">Google Docs</div><div class="tool-cat">Collaboration</div></div>
+    <div class="tool-c anim"><span class="tool-ico">📊</span><div class="tool-nm">Google Sheets</div><div class="tool-cat">Data</div></div>
+    <div class="tool-c anim"><span class="tool-ico">🔍</span><div class="tool-nm">Google Scholar</div><div class="tool-cat">Research</div></div>
+    <div class="tool-c anim"><span class="tool-ico">☁️</span><div class="tool-nm">Google Drive</div><div class="tool-cat">Cloud Storage</div></div>
+    <div class="tool-c anim"><span class="tool-ico">🌐</span><div class="tool-nm">Google Sites</div><div class="tool-cat">Portfolio</div></div>
+    <div class="tool-c anim"><span class="tool-ico">📚</span><div class="tool-nm">Semantic Scholar</div><div class="tool-cat">Research</div></div>
+    <div class="tool-c anim"><span class="tool-ico">✉️</span><div class="tool-nm">Messenger</div><div class="tool-cat">Communication</div></div>
+  </div>
+</section>
+<div class="divl"></div>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="s-header anim">
+    <span class="s-tag">Academic Work</span>
+    <h2 class="s-title">6 Featured <span class="hi">Projects</span></h2>
+    <p class="s-sub">Six comprehensive projects demonstrating digital literacy, AI applications, and critical academic thinking.</p>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-c p1 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 01</span>
+        <a href="project.html#1" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <!-- grid bg -->
+          <defs>
+            <pattern id="g1" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M28 0H0V28" fill="none" stroke="rgba(0,229,255,.07)" stroke-width=".8"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="210" fill="url(#g1)"/>
+          <!-- cloud -->
+          <ellipse cx="200" cy="52" rx="52" ry="22" fill="none" stroke="#00E5FF" stroke-width="1.6" opacity=".7"/>
+          <ellipse cx="174" cy="58" rx="28" ry="20" fill="none" stroke="#00E5FF" stroke-width="1.6" opacity=".7"/>
+          <ellipse cx="226" cy="58" rx="28" ry="20" fill="none" stroke="#00E5FF" stroke-width="1.6" opacity=".7"/>
+          <!-- cloud fill glow -->
+          <ellipse cx="200" cy="56" rx="54" ry="24" fill="rgba(0,229,255,.06)"/>
+          <!-- upload arrow -->
+          <line x1="200" y1="74" x2="200" y2="110" stroke="#64FFDA" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="200,68 195,76 205,76" fill="#64FFDA"/>
+          <!-- folder row -->
+          <g transform="translate(72,118)">
+            <rect x="0" y="8" width="52" height="36" rx="5" fill="rgba(0,229,255,.12)" stroke="#00E5FF" stroke-width="1.4"/>
+            <rect x="0" y="4" width="24" height="10" rx="3" fill="rgba(0,229,255,.2)"/>
+            <line x1="10" y1="22" x2="42" y2="22" stroke="rgba(0,229,255,.4)" stroke-width="1.2"/>
+            <line x1="10" y1="30" x2="36" y2="30" stroke="rgba(0,229,255,.25)" stroke-width="1.2"/>
+            <line x1="10" y1="38" x2="30" y2="38" stroke="rgba(0,229,255,.18)" stroke-width="1.2"/>
+          </g>
+          <g transform="translate(174,118)">
+            <rect x="0" y="8" width="52" height="36" rx="5" fill="rgba(100,255,218,.1)" stroke="#64FFDA" stroke-width="1.4"/>
+            <rect x="0" y="4" width="24" height="10" rx="3" fill="rgba(100,255,218,.18)"/>
+            <line x1="10" y1="22" x2="42" y2="22" stroke="rgba(100,255,218,.4)" stroke-width="1.2"/>
+            <line x1="10" y1="30" x2="36" y2="30" stroke="rgba(100,255,218,.25)" stroke-width="1.2"/>
+            <line x1="10" y1="38" x2="30" y2="38" stroke="rgba(100,255,218,.18)" stroke-width="1.2"/>
+          </g>
+          <g transform="translate(276,118)">
+            <rect x="0" y="8" width="52" height="36" rx="5" fill="rgba(0,229,255,.12)" stroke="#00E5FF" stroke-width="1.4"/>
+            <rect x="0" y="4" width="24" height="10" rx="3" fill="rgba(0,229,255,.2)"/>
+            <line x1="10" y1="22" x2="42" y2="22" stroke="rgba(0,229,255,.4)" stroke-width="1.2"/>
+            <line x1="10" y1="30" x2="36" y2="30" stroke="rgba(0,229,255,.25)" stroke-width="1.2"/>
+          </g>
+          <!-- connector lines cloud → folders -->
+          <line x1="200" y1="110" x2="98" y2="126" stroke="rgba(0,229,255,.25)" stroke-width="1"/>
+          <line x1="200" y1="110" x2="200" y2="126" stroke="rgba(100,255,218,.25)" stroke-width="1"/>
+          <line x1="200" y1="110" x2="302" y2="126" stroke="rgba(0,229,255,.25)" stroke-width="1"/>
+          <!-- dots at junctions -->
+          <circle cx="98" cy="126" r="3" fill="#00E5FF" opacity=".7"/>
+          <circle cx="200" cy="126" r="3" fill="#64FFDA" opacity=".7"/>
+          <circle cx="302" cy="126" r="3" fill="#00E5FF" opacity=".7"/>
+          <!-- label -->
+          <text x="200" y="196" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" letter-spacing="3" fill="rgba(0,229,255,.5)">CLOUD FILE HIERARCHY</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Digital Literacy · File Management</div>
+        <div class="proj-title">Basic File &amp; Folder Management</div>
+        <div class="proj-desc">Demonstrates mastery of digital file organization, systematic folder structures, naming conventions, and cloud storage management for academic and professional workflows.</div>
+        <div class="tags"><span class="stag">File Systems</span><span class="stag">Cloud Storage</span><span class="stag">Organization</span></div>
+      </div>
+    </div>
+    <div class="proj-c p2 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 02</span>
+        <a href="project.html#2" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <defs>
+            <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00FFC6" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="210" fill="url(#glow2)"/>
+          <!-- wrist base -->
+          <rect x="155" y="140" width="90" height="38" rx="12" fill="rgba(0,255,198,.1)" stroke="#00FFC6" stroke-width="1.6"/>
+          <!-- palm -->
+          <rect x="148" y="95" width="104" height="52" rx="10" fill="rgba(0,255,198,.08)" stroke="#64FFDA" stroke-width="1.4"/>
+          <!-- fingers -->
+          <rect x="155" y="52" width="18" height="48" rx="8" fill="rgba(0,229,255,.1)" stroke="#00E5FF" stroke-width="1.4"/>
+          <rect x="179" y="42" width="18" height="58" rx="8" fill="rgba(0,255,198,.12)" stroke="#00FFC6" stroke-width="1.4"/>
+          <rect x="203" y="44" width="18" height="56" rx="8" fill="rgba(0,255,198,.12)" stroke="#00FFC6" stroke-width="1.4"/>
+          <rect x="227" y="56" width="18" height="44" rx="8" fill="rgba(0,229,255,.1)" stroke="#00E5FF" stroke-width="1.4"/>
+          <!-- thumb -->
+          <rect x="126" y="85" width="28" height="16" rx="7" fill="rgba(100,255,218,.1)" stroke="#64FFDA" stroke-width="1.4" transform="rotate(-28,126,85)"/>
+          <!-- actuator dots on fingers -->
+          <circle cx="164" cy="64" r="3.5" fill="#00E5FF" opacity=".9"/>
+          <circle cx="188" cy="58" r="3.5" fill="#00FFC6" opacity=".9"/>
+          <circle cx="212" cy="60" r="3.5" fill="#00FFC6" opacity=".9"/>
+          <circle cx="236" cy="68" r="3.5" fill="#00E5FF" opacity=".9"/>
+          <!-- data lines to right -->
+          <line x1="262" y1="64" x2="310" y2="55" stroke="rgba(0,229,255,.35)" stroke-width="1.2"/>
+          <line x1="262" y1="80" x2="310" y2="80" stroke="rgba(0,255,198,.35)" stroke-width="1.2"/>
+          <line x1="262" y1="98" x2="310" y2="105" stroke="rgba(100,255,218,.35)" stroke-width="1.2"/>
+          <!-- data panel -->
+          <rect x="310" y="44" width="72" height="78" rx="7" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.25)" stroke-width="1"/>
+          <line x1="320" y1="62" x2="372" y2="62" stroke="rgba(0,229,255,.3)" stroke-width="1"/>
+          <line x1="320" y1="74" x2="362" y2="74" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+          <line x1="320" y1="86" x2="368" y2="86" stroke="rgba(0,255,198,.3)" stroke-width="1"/>
+          <line x1="320" y1="98" x2="355" y2="98" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+          <text x="346" y="58" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="rgba(0,229,255,.7)">FORCE</text>
+          <!-- label -->
+          <text x="200" y="198" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" letter-spacing="3" fill="rgba(0,255,198,.5)">SOFT EXOSUIT · REHABILITATION</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Research · Biomedical Engineering</div>
+        <div class="proj-title">Soft Robotics in Biomedical Rehabilitation</div>
+        <div class="proj-desc">Academic research on soft exosuits and wearable robotics for stroke rehabilitation, applying rigorous literature review methodology from peer-reviewed journal sources.</div>
+        <div class="tags"><span class="stag">Research</span><span class="stag">Soft Robotics</span><span class="stag">Biomedical</span><span class="stag">IEEE</span></div>
+      </div>
+    </div>
+    <div class="proj-c p3 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 03</span>
+        <a href="project.html#3" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <defs>
+            <pattern id="g3" width="24" height="24" patternUnits="userSpaceOnUse">
+              <path d="M24 0H0V24" fill="none" stroke="rgba(168,85,247,.07)" stroke-width=".8"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="210" fill="url(#g3)"/>
+          <!-- user bubble (left) -->
+          <rect x="24" y="30" width="150" height="34" rx="10" fill="rgba(106,27,154,.25)" stroke="rgba(168,85,247,.4)" stroke-width="1.3"/>
+          <rect x="24" y="30" width="150" height="34" rx="10" fill="none"/>
+          <line x1="36" y1="43" x2="100" y2="43" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/>
+          <line x1="36" y1="53" x2="85" y2="53" stroke="rgba(255,255,255,.2)" stroke-width="1.4"/>
+          <polygon points="24,58 14,64 24,64" fill="rgba(106,27,154,.25)"/>
+          <!-- AI bubble (right) — basic -->
+          <rect x="226" y="30" width="150" height="34" rx="10" fill="rgba(0,229,255,.1)" stroke="rgba(0,229,255,.3)" stroke-width="1.3"/>
+          <line x1="238" y1="43" x2="295" y2="43" stroke="rgba(0,229,255,.45)" stroke-width="1.4"/>
+          <line x1="238" y1="53" x2="270" y2="53" stroke="rgba(0,229,255,.25)" stroke-width="1.4"/>
+          <polygon points="376,58 386,64 376,64" fill="rgba(0,229,255,.1)"/>
+          <!-- IMPROVED row -->
+          <rect x="24" y="84" width="160" height="36" rx="10" fill="rgba(106,27,154,.3)" stroke="rgba(168,85,247,.5)" stroke-width="1.4"/>
+          <line x1="36" y1="95" x2="140" y2="95" stroke="rgba(255,255,255,.4)" stroke-width="1.4"/>
+          <line x1="36" y1="103" x2="120" y2="103" stroke="rgba(255,255,255,.3)" stroke-width="1.4"/>
+          <line x1="36" y1="111" x2="100" y2="111" stroke="rgba(255,255,255,.2)" stroke-width="1.4"/>
+          <polygon points="24,114 14,120 24,120" fill="rgba(106,27,154,.3)"/>
+          <rect x="216" y="84" width="160" height="36" rx="10" fill="rgba(0,229,255,.14)" stroke="rgba(0,229,255,.4)" stroke-width="1.4"/>
+          <line x1="228" y1="95" x2="360" y2="95" stroke="rgba(0,229,255,.5)" stroke-width="1.4"/>
+          <line x1="228" y1="103" x2="340" y2="103" stroke="rgba(0,229,255,.35)" stroke-width="1.4"/>
+          <line x1="228" y1="111" x2="305" y2="111" stroke="rgba(0,229,255,.2)" stroke-width="1.4"/>
+          <polygon points="376,114 386,120 376,120" fill="rgba(0,229,255,.14)"/>
+          <!-- ADVANCED row — full glow -->
+          <rect x="14" y="138" width="178" height="42" rx="10" fill="rgba(106,27,154,.38)" stroke="rgba(200,130,255,.6)" stroke-width="1.6"/>
+          <line x1="26" y1="149" x2="172" y2="149" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+          <line x1="26" y1="158" x2="160" y2="158" stroke="rgba(255,255,255,.38)" stroke-width="1.5"/>
+          <line x1="26" y1="167" x2="145" y2="167" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+          <polygon points="14,174 4,180 14,180" fill="rgba(106,27,154,.38)"/>
+          <rect x="208" y="138" width="178" height="42" rx="10" fill="rgba(0,229,255,.18)" stroke="rgba(0,255,198,.7)" stroke-width="1.6"/>
+          <filter id="fx3"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <rect x="208" y="138" width="178" height="42" rx="10" fill="none" stroke="rgba(0,255,198,.35)" stroke-width="4" filter="url(#fx3)" opacity=".6"/>
+          <line x1="220" y1="149" x2="374" y2="149" stroke="rgba(0,255,198,.6)" stroke-width="1.5"/>
+          <line x1="220" y1="158" x2="368" y2="158" stroke="rgba(0,255,198,.45)" stroke-width="1.5"/>
+          <line x1="220" y1="167" x2="356" y2="167" stroke="rgba(0,255,198,.35)" stroke-width="1.5"/>
+          <polygon points="386,174 396,180 386,180" fill="rgba(0,229,255,.18)"/>
+          <!-- level labels -->
+          <text x="200" y="24" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" letter-spacing="2" fill="rgba(168,85,247,.6)">BASIC</text>
+          <text x="200" y="79" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" letter-spacing="2" fill="rgba(0,229,255,.6)">IMPROVED</text>
+          <text x="200" y="133" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" letter-spacing="2" fill="rgba(0,255,198,.8)">ADVANCED</text>
+          <!-- arrow indicators between levels -->
+          <polygon points="200,76 196,71 204,71" fill="rgba(0,229,255,.5)"/>
+          <polygon points="200,130 196,125 204,125" fill="rgba(0,255,198,.7)"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">AI · Prompt Engineering</div>
+        <div class="proj-title">Prompt Engineering in Learning</div>
+        <div class="proj-desc">Structured exploration of prompt engineering applied to learning inverse kinematics, deep learning, and neural networks — showing Basic → Improved → Advanced prompt evolution.</div>
+        <div class="tags"><span class="stag">Prompt Design</span><span class="stag">ChatGPT</span><span class="stag">AI Literacy</span></div>
+      </div>
+    </div>
+    <div class="proj-c p4 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 04</span>
+        <a href="project.html#4" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <defs>
+            <radialGradient id="glow4" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0277bd" stop-opacity=".22"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="210" fill="url(#glow4)"/>
+          <!-- spokes from center -->
+          <line x1="200" y1="105" x2="200" y2="38"  stroke="rgba(0,229,255,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="80" y2="68"   stroke="rgba(0,229,255,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="50" y2="145"  stroke="rgba(0,229,255,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="120" y2="178" stroke="rgba(100,255,218,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="280" y2="178" stroke="rgba(100,255,218,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="350" y2="145" stroke="rgba(0,229,255,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="200" y1="105" x2="320" y2="68"  stroke="rgba(0,229,255,.3)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <!-- center hub -->
+          <circle cx="200" cy="105" r="26" fill="rgba(0,229,255,.1)" stroke="#00E5FF" stroke-width="1.8"/>
+          <circle cx="200" cy="105" r="16" fill="rgba(0,229,255,.14)" stroke="#00E5FF" stroke-width="1.2"/>
+          <text x="200" y="109" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="900" fill="#00E5FF">AI</text>
+          <!-- node: Google Drive -->
+          <circle cx="200" cy="35" r="18" fill="rgba(2,119,189,.22)" stroke="#29b6f6" stroke-width="1.5"/>
+          <text x="200" y="39" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#29b6f6">DRIVE</text>
+          <!-- node: Google Docs -->
+          <circle cx="78" cy="65" r="18" fill="rgba(0,255,198,.12)" stroke="#00FFC6" stroke-width="1.5"/>
+          <text x="78" y="69" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#00FFC6">DOCS</text>
+          <!-- node: Messenger -->
+          <circle cx="48" cy="145" r="18" fill="rgba(0,229,255,.12)" stroke="#00E5FF" stroke-width="1.5"/>
+          <text x="48" y="149" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6" font-weight="700" fill="#00E5FF">MSNGR</text>
+          <!-- node: Sheets -->
+          <circle cx="120" cy="178" r="18" fill="rgba(100,255,218,.12)" stroke="#64FFDA" stroke-width="1.5"/>
+          <text x="120" y="182" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#64FFDA">SHEETS</text>
+          <!-- node: Member A -->
+          <circle cx="280" cy="178" r="18" fill="rgba(0,255,198,.12)" stroke="#00FFC6" stroke-width="1.5"/>
+          <text x="280" y="182" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#00FFC6">MEM A</text>
+          <!-- node: Member B -->
+          <circle cx="352" cy="145" r="18" fill="rgba(0,229,255,.12)" stroke="#00E5FF" stroke-width="1.5"/>
+          <text x="352" y="149" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#00E5FF">MEM B</text>
+          <!-- node: Research -->
+          <circle cx="322" cy="65" r="18" fill="rgba(100,255,218,.12)" stroke="#64FFDA" stroke-width="1.5"/>
+          <text x="322" y="69" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="700" fill="#64FFDA">RSRCH</text>
+          <!-- pulse rings on center -->
+          <circle cx="200" cy="105" r="34" fill="none" stroke="rgba(0,229,255,.12)" stroke-width="1.2"/>
+          <circle cx="200" cy="105" r="44" fill="none" stroke="rgba(0,229,255,.07)" stroke-width="1"/>
+          <!-- label -->
+          <text x="200" y="202" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" letter-spacing="3" fill="rgba(41,182,246,.5)">COLLABORATIVE NETWORK</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Collaboration · Project Management</div>
+        <div class="proj-title">Online Collaboration in AI Research</div>
+        <div class="proj-desc">Documents the team's collaborative research process on AI for teleoperation robotics, using Google Workspace tools, structured workflows, and distributed teamwork strategies.</div>
+        <div class="tags"><span class="stag">Google Drive</span><span class="stag">Teamwork</span><span class="stag">Workflow</span></div>
+      </div>
+    </div>
+    <div class="proj-c p5 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 05</span>
+        <a href="project.html#5" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <defs>
+            <linearGradient id="bar5a" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#64FFDA"/></linearGradient>
+            <linearGradient id="bar5b" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00FFC6"/><stop offset="100%" stop-color="#00E5FF"/></linearGradient>
+          </defs>
+          <!-- faint grid -->
+          <rect width="400" height="210" fill="rgba(55,71,79,.12)"/>
+          <!-- Infographic canvas (right) -->
+          <rect x="218" y="20" width="155" height="172" rx="10" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.2)" stroke-width="1.3"/>
+          <!-- infographic header -->
+          <rect x="228" y="30" width="135" height="18" rx="4" fill="rgba(0,229,255,.14)"/>
+          <line x1="234" y1="38" x2="320" y2="38" stroke="rgba(0,229,255,.5)" stroke-width="1.8"/>
+          <!-- bar chart inside infographic -->
+          <rect x="234" y="58" width="22" height="52" rx="3" fill="url(#bar5a)" opacity=".7"/>
+          <rect x="262" y="70" width="22" height="40" rx="3" fill="url(#bar5b)" opacity=".6"/>
+          <rect x="290" y="50" width="22" height="60" rx="3" fill="url(#bar5a)" opacity=".75"/>
+          <rect x="318" y="64" width="22" height="46" rx="3" fill="url(#bar5b)" opacity=".65"/>
+          <!-- x axis -->
+          <line x1="234" y1="112" x2="342" y2="112" stroke="rgba(0,229,255,.3)" stroke-width="1"/>
+          <!-- donut chart -->
+          <circle cx="273" cy="147" r="22" fill="none" stroke="#00E5FF" stroke-width="7" stroke-dasharray="50 88" stroke-dashoffset="0" opacity=".7"/>
+          <circle cx="273" cy="147" r="22" fill="none" stroke="#64FFDA" stroke-width="7" stroke-dasharray="28 110" stroke-dashoffset="-50" opacity=".6"/>
+          <circle cx="273" cy="147" r="22" fill="none" stroke="#00FFC6" stroke-width="7" stroke-dasharray="10 128" stroke-dashoffset="-78" opacity=".5"/>
+          <!-- text rows in infographic -->
+          <line x1="308" y1="134" x2="352" y2="134" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+          <line x1="308" y1="144" x2="348" y2="144" stroke="rgba(255,255,255,.15)" stroke-width="1.2"/>
+          <line x1="308" y1="154" x2="344" y2="154" stroke="rgba(255,255,255,.12)" stroke-width="1.2"/>
+          <!-- Pipeline stages (left) -->
+          <!-- Stage boxes linked by arrows -->
+          <rect x="20" y="25" width="88" height="28" rx="6" fill="rgba(0,229,255,.1)" stroke="rgba(0,229,255,.3)" stroke-width="1.3"/>
+          <text x="64" y="43" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#00E5FF">RESEARCH</text>
+          <polygon points="64,57 60,53 68,53" fill="rgba(0,229,255,.5)"/>
+          <rect x="20" y="62" width="88" height="28" rx="6" fill="rgba(100,255,218,.1)" stroke="rgba(100,255,218,.3)" stroke-width="1.3"/>
+          <text x="64" y="80" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#64FFDA">PROMPT</text>
+          <polygon points="64,94 60,90 68,90" fill="rgba(100,255,218,.5)"/>
+          <rect x="20" y="98" width="88" height="28" rx="6" fill="rgba(0,255,198,.1)" stroke="rgba(0,255,198,.3)" stroke-width="1.3"/>
+          <text x="64" y="116" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#00FFC6">AI GENERATE</text>
+          <polygon points="64,130 60,126 68,126" fill="rgba(0,255,198,.5)"/>
+          <rect x="20" y="134" width="88" height="28" rx="6" fill="rgba(0,229,255,.1)" stroke="rgba(0,229,255,.35)" stroke-width="1.5"/>
+          <text x="64" y="152" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#00E5FF">REFINE</text>
+          <!-- arrow from pipeline to canvas -->
+          <line x1="108" y1="105" x2="218" y2="105" stroke="rgba(0,229,255,.3)" stroke-width="1.4" stroke-dasharray="5,3"/>
+          <polygon points="218,105 211,101 211,109" fill="rgba(0,229,255,.5)"/>
+          <!-- AI spark icon -->
+          <polygon points="168,98 163,107 172,107" fill="rgba(0,229,255,.7)" transform="rotate(-10 168 103)"/>
+          <polygon points="168,98 163,107 172,107" fill="none" stroke="rgba(0,229,255,.4)" stroke-width="1" transform="rotate(-10 168 103) scale(1.4) translate(-24,-14)"/>
+          <text x="168" y="92" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="rgba(0,229,255,.6)">AI</text>
+          <!-- label -->
+          <text x="200" y="202" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" letter-spacing="3" fill="rgba(100,255,218,.5)">GEN AI DESIGN PIPELINE</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Generative AI · Visual Design</div>
+        <div class="proj-title">Generative AI in Infographic Design</div>
+        <div class="proj-desc">A creative showcase of human-AI collaboration designing a professional infographic on AI in Teleoperation Robotics using ChatGPT, Gemini, and Canva AI — the portfolio's visual highlight.</div>
+        <div class="tags"><span class="stag">Gen AI</span><span class="stag">Canva AI</span><span class="stag">Infographic</span><span class="stag">Creative</span></div>
+      </div>
+    </div>
+    <div class="proj-c p6 anim">
+      <div class="proj-head">
+        <span class="proj-num">PROJECT 06</span>
+        <a href="project.html#6" class="proj-view" style="text-decoration: none;">View Project</a>
+        <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="proj-ill">
+          <defs>
+            <radialGradient id="glow6" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e65100" stop-opacity=".2"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="210" fill="url(#glow6)"/>
+          <!-- shield body -->
+          <path d="M200,22 L248,42 L248,100 C248,134 228,160 200,172 C172,160 152,134 152,100 L152,42 Z"
+                fill="rgba(230,81,0,.12)" stroke="#FF8F00" stroke-width="1.8"/>
+          <!-- shield inner -->
+          <path d="M200,32 L238,48 L238,100 C238,128 222,150 200,160 C178,150 162,128 162,100 L162,48 Z"
+                fill="rgba(230,81,0,.08)" stroke="rgba(255,143,0,.35)" stroke-width="1"/>
+          <!-- circuit lines inside shield -->
+          <line x1="180" y1="70" x2="220" y2="70" stroke="rgba(255,143,0,.4)" stroke-width="1.2"/>
+          <line x1="200" y1="70" x2="200" y2="90" stroke="rgba(255,143,0,.4)" stroke-width="1.2"/>
+          <circle cx="180" cy="70" r="3" fill="#FF8F00" opacity=".8"/>
+          <circle cx="220" cy="70" r="3" fill="#FF8F00" opacity=".8"/>
+          <circle cx="200" cy="90" r="3" fill="#FF8F00" opacity=".8"/>
+          <line x1="180" y1="100" x2="220" y2="100" stroke="rgba(255,143,0,.35)" stroke-width="1.2"/>
+          <circle cx="180" cy="100" r="3" fill="#FF8F00" opacity=".7"/>
+          <circle cx="220" cy="100" r="3" fill="#FF8F00" opacity=".7"/>
+          <line x1="200" y1="100" x2="200" y2="120" stroke="rgba(255,143,0,.35)" stroke-width="1.2"/>
+          <circle cx="200" cy="120" r="4" fill="#FF8F00" opacity=".8"/>
+          <!-- checkmark in center -->
+          <polyline points="185,95 197,108 218,80" fill="none" stroke="#FF8F00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- principle nodes around shield -->
+          <!-- left side -->
+          <circle cx="90" cy="65" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="90" y="69" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6" font-weight="700" fill="#FF8F00">FAIR</text>
+          <line x1="104" y1="72" x2="151" y2="80" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <circle cx="72" cy="115" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="72" y="119" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6" font-weight="700" fill="#FF8F00">SAFE</text>
+          <line x1="86" y1="115" x2="152" y2="107" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <circle cx="90" cy="158" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="90" y="162" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="700" fill="#FF8F00">HONEST</text>
+          <line x1="104" y1="152" x2="155" y2="138" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <!-- right side -->
+          <circle cx="310" cy="65" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="310" y="69" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="700" fill="#FF8F00">PRIVATE</text>
+          <line x1="296" y1="72" x2="249" y2="80" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <circle cx="328" cy="115" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="328" y="119" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="700" fill="#FF8F00">ACCOUNTBL</text>
+          <line x1="314" y1="115" x2="248" y2="107" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <circle cx="310" cy="158" r="14" fill="rgba(230,81,0,.15)" stroke="rgba(255,143,0,.4)" stroke-width="1.3"/>
+          <text x="310" y="162" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" font-weight="700" fill="#FF8F00">INTEGRIT</text>
+          <line x1="296" y1="152" x2="245" y2="138" stroke="rgba(255,143,0,.25)" stroke-width="1"/>
+          <!-- label -->
+          <text x="200" y="200" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" letter-spacing="3" fill="rgba(255,143,0,.5)">RESPONSIBLE AI FRAMEWORK</text>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Ethics · Responsible AI</div>
+        <div class="proj-title">Responsible AI Usage in Learning</div>
+        <div class="proj-desc">Reflective analysis of ethical AI usage in academic contexts — personal principles, framework for transparency, academic integrity, and responsible AI engagement in higher education.</div>
+        <div class="tags"><span class="stag">AI Ethics</span><span class="stag">Integrity</span><span class="stag">Reflection</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divl"></div>
+
+
+<!-- ═══ IMPLEMENTATION GUIDE ═══ -->
+<section id="conclusion" style="text-align: center; padding: 80px 20px; max-width: 850px; margin: 0 auto;">
+    <h2 class="s-title">In <span class="hi">Conclusion</span></h2>
+  <h2 class="section-title" style="margin-bottom: 30px; color: var(--c-primary); font-family: var(--f-head); letter-spacing: 2px;">
+    [ SYSTEM STATUS: EVOLUTION & RESPONSIBILITY ]
+  </h2>
+  
+  <p style="color: var(--c-text); font-size: 1.1rem; line-height: 1.8; margin-bottom: 35px;">
+    <span style="color: var(--c-secondary); font-weight: 700; font-size: 1.2rem;">"Where Hardware Meets Digital Intelligence."</span><br>
+    The journey of exploring Digital Technology and Artificial Intelligence has provided me, a Robotics Engineering student, with a completely new perspective. Technology is not a fixed destination, but a continuous evolution. Bridging the gap between physical mechanics and digital intelligence is the core key to architecting smarter, more intuitive automated systems for the future.
+  </p>
+
+  <div style="background: var(--c-surface2); border: 1px solid var(--c-border); padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+    <h3 style="color: var(--c-accent); margin-top: 0; font-family: var(--f-head); font-size: 1.1rem; display: flex; align-items: center; gap: 10px; letter-spacing: 1px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      AI ETHICS & RESPONSIBILITY
+    </h3>
+    <p style="color: var(--c-text2); font-size: 0.95rem; line-height: 1.7; margin: 0;">
+      Alongside the immense computational power of modern algorithms comes the professional responsibility of an engineer. In this era of rapid AI advancement, I am committed to upholding core ethical principles: <strong>Transparency</strong> in utilizing digital tools, <strong>Respect</strong> for academic integrity, and prioritizing <strong>Human-centric safety</strong>. AI is a powerful assistant that optimizes our workflow, but original creativity, technical accountability, and professional ethics will always remain human. Ultimately, an ethical mindset is the most crucial "prompt" to guide technology in serving society sustainably.
+    </p>
+  </div>
+
+  <p style="color: var(--c-text2); font-size: 1.05rem; line-height: 1.7; margin-bottom: 45px; font-style: italic;">
+    I would like to express my deepest gratitude to my <strong style="color: var(--c-primary); font-style: normal;">Digital Technology</strong> instructor for the dedicated guidance, support, and inspiration throughout this semester. The knowledge and open mindset gained from this course serve as a solid launchpad for me to confidently step into the technological future.
+  </p>
+
+  <div style="margin-top: 20px;">
+    <p style="color: var(--c-text2); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px; font-family: var(--f-ui); text-transform: uppercase;">
+      Human curiosity is the ultimate prompt
+    </p>
+    <a href="mailto:your-email@example.com" class="btn" style="text-decoration: none; display: inline-block;">
+      LET'S CONNECT
+    </a>
+  </div>
+
+</section>
+<div class="divl"></div>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="foot-logo">NCA · PORTFOLIO</div>
+  <p class="foot-t">Nguyen Chi Anh · Robotics Engineering · University of Engineering and Technology</p>
+  <p style="font-family:var(--f-ui);font-size:11px;color:rgba(176,190,197,.4);margin-top:6px">Digital Technology and Artificial Intelligence Applications</p>
+</footer>
+
+</div><!-- end .wrap -->
+
+<script>
+/* ══ NEURAL NETWORK CANVAS ══ */
+const cv=document.getElementById('bgCanvas'),ct=cv.getContext('2d');
+let W=cv.width=window.innerWidth,H=cv.height=window.innerHeight;
+window.addEventListener('resize',()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight});
+const N=55,D=170,nodes=Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.38,vy:(Math.random()-.5)*.38,r:Math.random()*1.8+.8,p:Math.random()*Math.PI*2}));
+function draw(){
+  ct.clearRect(0,0,W,H);
+  for(let i=0;i<nodes.length;i++){
+    const n=nodes[i];
+    n.x+=n.vx;n.y+=n.vy;n.p+=.018;
+    if(n.x<0||n.x>W)n.vx*=-1;
+    if(n.y<0||n.y>H)n.vy*=-1;
+    for(let j=i+1;j<nodes.length;j++){
+      const m=nodes[j],dx=n.x-m.x,dy=n.y-m.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<D){const a=(1-d/D)*.22;ct.beginPath();ct.strokeStyle=`rgba(0,229,255,${a})`;ct.lineWidth=.5;ct.moveTo(n.x,n.y);ct.lineTo(m.x,m.y);ct.stroke();}
+    }
+    const pm=.5+.5*Math.sin(n.p);
+    ct.beginPath();ct.arc(n.x,n.y,n.r*(1+.25*pm),0,Math.PI*2);ct.fillStyle=`rgba(0,229,255,${.35+.35*pm})`;ct.fill();
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ══ SCROLL ANIMATIONS ══ */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const siblings=Array.from(e.target.parentElement.children);
+      const idx=siblings.indexOf(e.target);
+      setTimeout(()=>e.target.classList.add('vis'),idx*70);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
