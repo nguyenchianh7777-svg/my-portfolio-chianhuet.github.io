@@ -176,6 +176,25 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Documented Folder Structure"}
     ],
     overview:`Đây là dự án rèn luyện thao tác cơ bản trên hệ điều hành (Windows/macOS/Linux). Nó tập trung vào việc quản lý dữ liệu số, giúp người dùng hiểu cách máy tính tổ chức và lưu trữ thông tin thông qua sơ đồ cây (thư mục cha -> thư mục con -> tệp tin).`,
+// SỬA LẠI MẢNG STEPS DẠNG ĐỐI TƯỢNG:
+    steps: [
+      { 
+        text: "Khởi tạo thư mục gốc: Mở File Explorer (Win + E) và tạo thư mục làm việc chính ThucHanh_NguyenChiAnh tại ổ đĩa lưu trữ.", 
+        img: "proof11.png" // Đường dẫn ảnh minh chứng cho bước 1
+      },
+      { 
+        text: "Quản lý tệp tin cơ bản: Tạo các tệp văn bản mới GhiChu.txt và thực hành lệnh đổi tên (Rename) cho tệp.", 
+        img: "proof12.png" // Đường dẫn ảnh minh chứng cho bước 2
+      },
+      { 
+        text: "Tổ chức và điều hướng dữ liệu: Tạo thư mục con TaiLieu. Dùng lệnh sao chép (Copy/Paste) và lệnh di chuyển (Cut/Paste) để phân loại tệp tin vào đúng vị trí.", 
+        img: "proof13.png" // Để "" nếu bước này chưa có ảnh
+      },
+      { 
+        text: "Kiểm soát xóa và khôi phục: Thực hiện xóa tệp thông thường (Delete), xóa dữ liệu vĩnh viễn (Shift + Delete), và khôi phục tệp tin từ Thùng rác (Restore).", 
+        img: "proof14.png"
+      }
+    ],
     objectives:[
       "Thực hành và thành thạo các kỹ năng tạo, đổi tên, sao chép, di chuyển và xóa tệp/thư mục trên hệ điều hành Windows."
     ],
@@ -204,6 +223,21 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Literature Review Report"}
     ],
     overview:`Dự án này nghiên cứu tình trạng hiện tại của các bộ đồ khung robot mềm (soft robotic exosuits) hỗ trợ phục hồi chức năng chi trên cho bệnh nhân sau đột quỵ. Bằng cách sử dụng phương pháp tìm kiếm học thuật hệ thống trên các nền tảng IEEE Xplore, PubMed và Google Scholar, tôi đã xác định, đánh giá và tổng hợp 10 nguồn tài liệu được bình duyệt (peer-reviewed) xuất bản trong khoảng thời gian từ năm 2018 đến năm 2024. Nghiên cứu áp dụng khung tiêu chuẩn CRAAP để kiểm chứng độ tin cậy của nguồn tài liệu và trình bày các phát hiện về hiệu quả lâm sàng, công nghệ bộ truyền động, và kết quả tương tác giữa người và robot.`,
+    // SỬA LẠI MẢNG STEPS DẠNG ĐỐI TƯỢNG:
+    steps: [
+      { 
+        text: "Xác định đề tài & Tra cứu: Chọn một chủ đề chuyên sâu thuộc ngành Kỹ thuật Robot (công nghệ robot mềm) và quét các cơ sở dữ liệu học thuật uy tín.", 
+        img: "prf21.png" // Đường dẫn ảnh minh chứng cho bước 1
+      },
+      { 
+        text: "Thu thập & Chọn lọc: Trích xuất mục tiêu tối thiểu 10 tài liệu tham khảo chất lượng, trong đó bắt buộc có từ 5 bài báo khoa học trở lên.", 
+        img: "prf22.png" // Đường dẫn ảnh minh chứng cho bước 2
+      },
+      { 
+        text: "Thẩm định & Báo cáo: Thẩm định độ tin cậy của từng nguồn (dựa trên tác giả, phương pháp nghiên cứu, tính cập nhật) và đúc kết thành một bảng tổng hợp phân tích.", 
+        img: "" // Để "" nếu bước này chưa có ảnh
+      }
+    ],
     objectives:[
       "Xây dựng câu hỏi nghiên cứu rõ ràng về lĩnh vực robot mềm trong phục hồi chức năng",
       "Thực hiện tìm kiếm trên các cơ sở dữ liệu học thuật một cách hệ thống bằng các từ khóa mục tiêu",
@@ -236,6 +270,20 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Prompt Engineering Report"}
     ],
     overview:`Dự án này ghi lại quá trình khám phá hệ thống về kỹ thuật đặt câu lệnh (prompt engineering) như một công cụ học tập cho các khái niệm Kỹ thuật Robot phức tạp. Thông qua ba nghiên cứu điển hình — Động học ngược (Inverse Kinematics), Học sâu (Deep Learning) và Mạng thần kinh (Neural Networks) — tôi đã thiết kế và tinh chỉnh các câu lệnh theo vòng lặp từ cấp độ Cơ bản đến Cải thiện và Nâng cao, nhằm phân tích cấu trúc câu lệnh ảnh hưởng thế nào đến chất lượng, độ chính xác và hiệu quả sư phạm của các lời giải thích do AI tạo ra.`,
+    steps: [
+      { 
+        text: "Thiết kế câu lệnh (Prompt Design): Chọn 3 tác vụ học tập tiêu biểu (Giải thích, Tóm tắt, Tạo câu hỏi) và xây dựng 3 cấp độ câu lệnh cho mỗi tác vụ (Cơ bản, Cải tiến, Nâng cao).", 
+        img: "prf31.png" // Đổi tên ảnh tương ứng
+      },
+      { 
+        text: "Thực nghiệm & Đối chiếu: Chạy thử nghiệm các bộ câu lệnh trên mô hình AI ChatGPT và tiến hành so sánh trực tiếp chất lượng văn bản đầu ra.", 
+        img: "prf32.png" 
+      },
+      { 
+        text: "Phân tích & Đúc kết: Đánh giá chuyên sâu lý do tạo nên sự tối ưu của các câu lệnh nâng cao, từ đó tổng hợp thành bộ nguyên tắc và mẹo giao tiếp với AI hiệu quả.", 
+        img: "prf33.png" 
+      }
+    ],
     objectives:[
       "Hiểu các thành phần của một câu lệnh AI hiệu quả (vai trò, ngữ cảnh, định dạng, các ràng buộc)",
       "Áp dụng khung tiến hóa câu lệnh 3 cấp độ: Cơ bản → Cải thiện → Nâng cao",
@@ -250,7 +298,7 @@ const PROJECTS = {
       {icon:"⚠️",title:"Hạn chế của AI (AI Limitation)",text:"Ngay cả những câu lệnh nâng cao nhất cũng không thể đảm bảo độ chính xác hoàn toàn về mặt sự thật — tất cả kết quả đầu ra đều cần được kiểm chứng độc lập"}
     ],
     files:[
-      {name:"Prompt Engineering Report",   type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo đầy đủ bao gồm 3 nghiên cứu điển hình, các bảng tiến hóa câu lệnh, phân tích kết quả đầu ra của AI và các bài học kinh nghiệm.",        size:"", href:"prompt_engineering_report.docx"},
+      {name:"Prompt Engineering Report",   type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo đầy đủ bao gồm 3 nghiên cứu điển hình, các bảng tiến hóa câu lệnh, phân tích kết quả đầu ra của AI và các bài học kinh nghiệm.",        size:"", href:"prompt_engineering_report.pdf"},
     ]
   },
   4:{
@@ -268,6 +316,21 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Collaborative Research Document"}
     ],
     overview:`Dự án này ghi lại quá trình nghiên cứu hợp tác của nhóm chúng tôi về chủ đề "Ứng dụng của Trí tuệ Nhân tạo trong Robot Điều khiển từ xa" (Applications of Artificial Intelligence in Teleoperation Robotics). Sử dụng Google Workspace làm môi trường kỹ thuật số chung, chúng tôi đã phối hợp qua các giai đoạn nghiên cứu, viết và soát xét trong vòng ba tuần. Tôi đảm nhận vai trò Điều phối viên Nghiên cứu — quản lý cấu trúc thư mục Drive dùng chung, duy trì bảng theo dõi nguồn tài liệu trong Google Sheets, và soạn thảo các phần Mở đầu và Tổng quan văn liệu của tài liệu cuối cùng.`,
+    // THÊM MẢNG STEPS CHO PROJECT 4
+    steps: [
+      { 
+        text: "Thiết lập hệ sinh thái cộng tác: Lựa chọn và tích hợp các công cụ làm việc trực tuyến bao gồm Google Sheet (quản lý dự án), Google Drive/Docs (lưu trữ và soạn thảo chung), và Messenger (giao tiếp nhóm).", 
+        img: "" // Đổi tên ảnh minh chứng tương ứng
+      },
+      { 
+        text: "Thực thi nhiệm vụ cá nhân: Chủ động theo dõi tiến độ trên bảng công việc, tham gia thảo luận gỡ rối cùng nhóm, và trực tiếp đóng góp nội dung vào tài liệu nghiên cứu chung.", 
+        img: "prf42.png" 
+      },
+      { 
+        text: "Lưu vết và tổng hợp minh chứng: Chụp lại lịch sử chỉnh sửa (version history), nhật ký trao đổi và cách thức tổ chức dữ liệu cá nhân để ghi nhận rõ ràng vai trò đóng góp vào thành quả chung.", 
+        img: "prf43.png" 
+      }
+    ],
     objectives:[
       "Thiết lập một không gian làm việc chung có cấu trúc trên Google Drive để quản lý tệp tin cho toàn nhóm",
       "Xác định rõ vai trò và trách nhiệm của từng thành viên trong nhóm bằng bản điều lệ dự án (project charter)",
@@ -282,7 +345,7 @@ const PROJECTS = {
       {icon:"📝",title:"Bài học then chốt (Key Learning)",text:"Giao tiếp chính là kỹ năng kỹ thuật quan trọng nhất trong các dự án nhóm trực tuyến — nó còn quan trọng hơn cả chuyên môn cá nhân"}
     ],
     files:[
-      {name:"Team Research Document",        type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài báo cáo nghiên cứu hợp tác về AI trong Robot điều khiển từ xa, đã được tích hợp đầy đủ tất cả các phần.",             size:"", href:"teamwork-personal.docx"}
+      {name:"Team Research Document",        type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài báo cáo nghiên cứu hợp tác về AI trong Robot điều khiển từ xa, đã được tích hợp đầy đủ tất cả các phần.",             size:"", href:"teamwork-personal.pdf"}
     ]
   },
   5:{
@@ -300,6 +363,21 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Professional Infographic + Process Report"}
     ],
     overview:`Dự án này là điểm nhấn hình ảnh trung tâm trong hồ sơ năng lực (portfolio). Tôi đã sử dụng trí tuệ nhân tạo tạo sinh (Generative AI) như một đối tác sáng tạo để thiết kế một bản infographic chuyên nghiệp về chủ đề "AI trong Robot điều khiển từ xa". Quy trình được thực hiện qua bốn giai đoạn: Nghiên cứu nội dung với sự hỗ trợ của AI (ChatGPT + Gemini), lập kế hoạch cấu trúc nội dung, thiết kế lặp lại bằng Canva AI (qua ba phiên bản), và tinh chỉnh thủ công bởi con người. Kết quả cho thấy cả kỹ năng sử dụng AI về mặt kỹ thuật lẫn khả năng đánh giá phản biện cần thiết để thẩm định, lựa chọn và cải thiện các sản phẩm sáng tạo do AI tạo ra.`,
+    // THÊM MẢNG STEPS CHO PROJECT 5
+    steps: [
+      { 
+        text: "Định hình dự án & Phối hợp công cụ: Lựa chọn thiết kế Infographic và kết hợp đồng thời các công cụ AI tạo sinh thuộc 3 nhóm khác nhau (như ChatGPT tạo văn bản, Gemini và Canva AI hỗ trợ thiết kế).", 
+        img: "" // Đổi tên ảnh minh chứng tương ứng
+      },
+      { 
+        text: "Thực thi & Tối ưu hóa: Ghi nhận chi tiết các câu lệnh (prompts) đã dùng, sau đó trực tiếp chỉnh sửa và kết hợp đầu ra của AI với tư duy thẩm mỹ cá nhân để hoàn thiện bản thiết kế cuối cùng.", 
+        img: "prf52.png" 
+      },
+      { 
+        text: "Phân tích & Đánh giá phản tư: Viết báo cáo đánh giá toàn diện về vai trò của AI trong dự án, chỉ rõ những điểm mạnh/yếu, sự thay đổi trong quy trình làm việc và các khía cạnh đạo đức cần lưu tâm.", 
+        img: "prf53.png" 
+      }
+    ],
     objectives:[
       "Sử dụng ChatGPT và Gemini để nghiên cứu và xây dựng cấu trúc nội dung infographic về robot điều khiển từ xa",
       "Thiết kế các câu lệnh (prompts) Canva AI hiệu quả để tạo bố cục và phong cách hình ảnh",
@@ -315,7 +393,7 @@ const PROJECTS = {
     ],
     files:[
       {name:"Final Infographic",              type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bản infographic cuối cùng về AI trong Robot điều khiển từ xa đạt chất lượng xuất bản (khổ A4, tệp PDF sẵn sàng để in).",            size:"", href:"AI in Teleoperation Robotics.pdf"},
-      {name:"Design Process Report",          type:"docx",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo văn bản ghi lại từng giai đoạn: các câu lệnh nghiên cứu, các quyết định thiết kế và so sánh giữa các phiên bản.",    size:"", href:"inforgraphic.docx"},
+      {name:"Design Process Report",          type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo văn bản ghi lại từng giai đoạn: các câu lệnh nghiên cứu, các quyết định thiết kế và so sánh giữa các phiên bản.",    size:"", href:"inforgraphic.pdf"},
     ]
   },
   6:{
@@ -333,6 +411,21 @@ const PROJECTS = {
       {label:"Deliverable",   value:"Responsible AI Framework Report"}
     ],
     overview:`Dự án phản tư này xem xét vai trò của trí tuệ nhân tạo trong giáo dục đại học dưới góc độ đạo đức và liêm chính học thuật. Dựa trên kinh nghiệm của bản thân qua tất cả năm dự án trước đó, tôi đã xây dựng một khung quy tắc cá nhân gồm 7 nguyên tắc để sử dụng AI có trách nhiệm trong học tập. Dự án phân tích cả những lợi ích đáng kể và những rủi ro nghiêm trọng của AI trong bối cảnh học thuật, đồng thời kết thúc bằng một bản cam kết cá nhân về việc tương tác với AI một cách đạo đức xuyên suốt quá trình đào tạo kỹ thuật của mình.`,
+    // THÊM MẢNG STEPS CHO PROJECT 6
+    steps: [
+      { 
+        text: "Nghiên cứu quy định & Ứng dụng minh bạch: Tìm hiểu chính sách học thuật về AI và thực hiện một nhiệm vụ học tập mẫu. Quá trình này yêu cầu ghi chép chi tiết các câu lệnh (prompts), cách đánh giá, tinh chỉnh kết quả và trích dẫn AI hợp lệ.", 
+        img: "prf61.png" // Đổi tên ảnh minh chứng tương ứng
+      },
+      { 
+        text: "Phân tích đạo đức & Thiết lập nguyên tắc: Đánh giá ranh giới giữa việc dùng AI làm công cụ hỗ trợ và hành vi gian lận học thuật. Dựa trên phân tích đó, xây dựng một bộ quy tắc cá nhân (gồm 7 nguyên tắc) về việc sử dụng AI có trách nhiệm.", 
+        img: "prf62.png" 
+      },
+      { 
+        text: "Trực quan hóa (Infographic): Tổng hợp toàn bộ các nghiên cứu, phân tích và bộ nguyên tắc cá nhân thành một bản Infographic được thiết kế chuyên nghiệp, minh họa trực quan cho chủ đề 'Sử dụng AI có trách nhiệm trong học thuật'.", 
+        img: "prf63.png" 
+      }
+    ],
     objectives:[
       "Phân tích phản biện những lợi ích và rủi ro của việc sử dụng công cụ AI trong môi trường học thuật",
       "Xác định các khía cạnh then chốt về liêm chính học thuật khi sử dụng AI tạo sinh",
@@ -347,7 +440,7 @@ const PROJECTS = {
       {icon:"📜",title:"Cam kết (Commitment)",text:"Trách nhiệm đối với việc học, công việc và sự liêm chính của tôi hoàn toàn thuộc về chính tôi — Nguyễn Chí Anh"}
     ],
     files:[
-      {name:"Responsible AI Report",          type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài luận phản tư đầy đủ: AI trong giáo dục, lợi ích, rủi ro, khung đạo đức và bản cam kết.",  size:"", href:"used AI responsibility.docx"}
+      {name:"Responsible AI Report",          type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bài luận phản tư đầy đủ: AI trong giáo dục, lợi ích, rủi ro, khung đạo đức và bản cam kết.",  size:"", href:"used AI responsibility.pdf"}
     ]
   }
 };
@@ -410,6 +503,24 @@ function render(id){
       <div class="overview-card anim">
         <div class="card-ttl" style="color:${p.accent}">Overview</div>
         <p>${p.overview}</p>
+${p.steps ? `
+          <div class="card-ttl" style="color:${p.accent};margin-top:8px">Execution Steps</div>
+          <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+            ${p.steps.map((step, index) => `
+              <div style="display:flex; align-items:flex-start; gap:12px; font-size:13.5px; color:var(--c-text2); line-height:1.6;">
+                <span style="background:var(--proj-accent); color:var(--c-bg); font-family:var(--f-ui); font-weight:800; font-size:10px; padding:3px 7px; border-radius:5px; flex-shrink:0; margin-top:2px;">STEP 0${index + 1}</span>
+                
+                <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
+                  <span>${step.text}</span>
+                  
+                  ${step.img ? `
+                    <img src="${step.img}" style="max-width:100%; height:auto; border-radius:8px; border:1px solid var(--c-border); margin-top:4px; box-shadow:0 4px 15px rgba(0,0,0,0.2);" alt="Proof Step 0${index + 1}">
+                  ` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
         <div class="card-ttl" style="color:${p.accent};margin-top:4px">Learning Objectives</div>
         <ul class="objectives">${p.objectives.map(o=>`<li style="--proj-accent:${p.accent}">${o}</li>`).join('')}</ul>
       </div>
