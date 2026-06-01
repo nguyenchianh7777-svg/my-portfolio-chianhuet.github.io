@@ -383,7 +383,7 @@ function render(id){
     <div class="hero-grid"></div>
     <div class="hero-inner anim">
       <div class="proj-eyebrow" style="color:${p.accent};border-color:${p.accent}33;background:${p.accentAlpha}">${p.tag}</div>
-      <h1 class="proj-h1"><span style="background:${p.gradient}">${p.title}</span></h1>
+      <h1 class="proj-h1"><span style="background-image:${p.gradient}">${p.title}</span></h1>
       <div class="proj-cats">${p.categories.map(c=>`<span class="proj-cat">${c}</span>`).join('')}</div>
     </div>
   </section>`;
