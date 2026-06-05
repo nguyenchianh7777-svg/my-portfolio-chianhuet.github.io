@@ -134,7 +134,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px;display:fl
   <!-- NAV -->
   <nav>
     <div class="logo">NCA<em>.</em>Portfolio</div>
-    <a href="index.html" class="back-btn">
+    <a href="index.html#projects" class="back-btn">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       Back to Portfolio
     </a>
@@ -389,10 +389,10 @@ const PROJECTS = {
       {icon:"🎨",title:"Các phiên bản thiết kế (Design Iterations)",text:"Bao gồm 3 phiên bản hoàn chỉnh: v1: Mặc định từ AI (chung chung) → v2: Sử dụng câu lệnh mục tiêu với chủ đề tối (dark theme) → v3: Tinh chỉnh thủ công bởi con người"},
       {icon:"🤖",title:"Cộng tác với AI (AI Collaboration)",text:"Sử dụng ChatGPT để lập cấu trúc nội dung, Gemini để mở rộng nghiên cứu, và Canva AI để tạo bố cục cũng như phong cách thiết kế"},
       {icon:"💡",title:"Nhận thức cốt lõi (Core Insight)",text:"AI tạo ra các điểm khởi đầu xuất sắc, nhưng chính khả năng thẩm mỹ và kiến thức chuyên môn của con người mới là yếu tố thúc đẩy chất lượng cuối cùng"},
-      {icon:"📐",title:"Kết quả (Final Result)",text:"Một bản Infographic khổ dọc 800 x 2000 px bao quát 5 lĩnh vực ứng dụng AI, 4 công nghệ then chốt và các thành phần trực quan hóa dữ liệu"}
+      {icon:"📐",title:"Kết quả (Final Result)",text:"Một bản Infographic khổ dọc A4 bao quát 5 lĩnh vực ứng dụng AI, 4 công nghệ then chốt và các thành phần trực quan hóa dữ liệu"}
     ],
     files:[
-      {name:"Final Infographic",              type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bản infographic cuối cùng về AI trong Robot điều khiển từ xa đạt chất lượng xuất bản (khổ dọc 800 x 2000 px, tệp PDF sẵn sàng để in).",            size:"", href:"AI in Teleoperation Robotics.pdf"},
+      {name:"Final Infographic",              type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Bản infographic cuối cùng về AI trong Robot điều khiển từ xa đạt chất lượng xuất bản (khổ A4, tệp PDF sẵn sàng để in).",            size:"", href:"AI in Teleoperation Robotics.pdf"},
       {name:"Design Process Report",          type:"pdf",  typeColor:"#EF5350",bgColor:"rgba(239,83,80,.12)",  desc:"Báo cáo văn bản ghi lại từng giai đoạn: các câu lệnh nghiên cứu, các quyết định thiết kế và so sánh giữa các phiên bản.",    size:"", href:"inforgraphic.pdf"},
     ]
   },
@@ -461,7 +461,7 @@ function fileIcon(type,color){
 /* ══ RENDER PROJECT ══ */
 function render(id){
   const p = PROJECTS[id];
-  if(!p){document.body.innerHTML='<p style="color:#fff;padding:80px;font-size:18px">Project not found. <a href="index.html" style="color:#00E5FF">← Back</a></p>';return;}
+  if(!p){document.body.innerHTML='<p style="color:#fff;padding:80px;font-size:18px">Project not found. <a href="index (2).html" style="color:#00E5FF">← Back</a></p>';return;}
 
   // Set CSS accent var
   document.documentElement.style.setProperty('--proj-accent', p.accent);
@@ -572,7 +572,26 @@ ${p.steps ? `
   </section>`;
 
 // ── PREV / NEXT ──
+  // ── PREV / NEXT ──
   const prev=id>1?id-1:null, next=id<6?id+1:null;
+  
+  let nextBtnHTML = '';
+  if (id === 6) {
+    // Chuyển hướng sang trang index.html và cuộn tới id="conclusion"
+    nextBtnHTML = `
+    <a href="index.html#conclusion" class="pn-btn" style="color: var(--proj-accent); border-color: var(--proj-accent); background: var(--proj-accent-alpha);">
+      IN CONCLUSION
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>`;
+  } else {
+    // Nút Next bình thường cho các project từ 1 đến 5
+    nextBtnHTML = `
+    <a href="#${next}" class="pn-btn${!next?' hidden':''}">
+      Project ${next?String(next).padStart(2,'0'):''}
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>`;
+  }
+
   document.getElementById('proj-pn-wrap').innerHTML=`
   <div class="pn-bar">
     <a href="#${prev}" class="pn-btn${!prev?' hidden':''}">
@@ -580,10 +599,7 @@ ${p.steps ? `
       Project ${prev?String(prev).padStart(2,'0'):''}
     </a>
     <span class="pn-center">PROJECT ${p.num} / 06</span>
-    <a href="#${next}" class="pn-btn${!next?' hidden':''}">
-      Project ${next?String(next).padStart(2,'0'):''}
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </a>
+    ${nextBtnHTML}
   </div>`;
 
   // trigger scroll animations
